@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Autofac.Core;
 using Graves.Visualizers.Autofac.Data;
+using Graves.Visualizers.Autofac.Data.Structures;
 using Moq;
 using NUnit.Framework;
 
@@ -9,25 +10,61 @@ namespace Graves.Visualizer.Autofac.Tests {
 
 	[TestFixture]
 	public class ResolutionTrackerTest {
-	
+
 		[Test]
 		public void BuildsRegistrationsInRightOrder() {
-			var first = new Mock<IComponentRegistration>();
-			var second = new Mock<IComponentRegistration>();
+			var first = new Mock<IRegistration>();
+			var second = new Mock<IRegistration>();
 
-			var registrations = new List<IComponentRegistration> {
+			var registrations = new List<IRegistration> {
 				first.Object,
 				second.Object,
 			};
-			var tracker = new ResolutionTracker(registrations);
 
-			first.Raise(r => r.Preparing += null);
-			second.Raise(r => r.Preparing += null);
-			second.Raise(r => r.Activating += null);
-			first.Raise(r => r.Activating += null);
+			var tracker = new ResolutionTracker(typeof(Type), registrations);
 
+			first.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(string)));
+			second.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(int)));
+			
+			second.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
+				typeof(int), typeof(long)
+			));
+
+			first.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
+				typeof(string), typeof(IEnumerable<char>)
+			));
+
+			var expected = new ActivationData { Built = typeof(string), Buildees = new List<Type> { typeof(int) } };
 			var results = tracker.Activations.First();
-			Assert.AreEqual(first, results.Built);
+
+			Assert.AreEqual(expected.Built, results.Built);
+			Assert.IsTrue(expected.Buildees.SequenceEqual(results.Buildees));
+		}
+		
+		[Test]
+		public void TracksSubTypes() {
+			var first = new Mock<IRegistration>();
+			var second = new Mock<IRegistration>();
+
+			var registrations = new List<IRegistration> {
+				first.Object,
+				second.Object,
+			};
+
+			var tracker = new ResolutionTracker(typeof(Type), registrations);
+
+			first.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(string)));
+			second.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(int)));
+			
+			second.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
+				typeof(int), typeof(long)
+			));
+
+			first.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
+				typeof(string), typeof(IEnumerable<char>)
+			));
+
+			Assert.AreEqual(2, tracker.Activations.Count());
 		}
 	}
 }

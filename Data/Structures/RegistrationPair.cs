@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Graves.Visualizers.Autofac.Data {
+namespace Graves.Visualizers.Autofac.Data.Structures {
 
 	[Serializable]
 	public struct RegistrationPair {

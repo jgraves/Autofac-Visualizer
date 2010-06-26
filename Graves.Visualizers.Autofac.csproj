@@ -35,6 +35,12 @@
       <HintPath>.\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NGenerics">
+      <HintPath>lib\NGenerics.dll</HintPath>
+    </Reference>
+    <Reference Include="NGenerics.UI">
+      <HintPath>lib\NGenerics.UI.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="QuickGraph">
@@ -62,18 +68,21 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\ActivationData.cs" />
+    <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
+    <Compile Include="Data\Structures\ActivationData.cs" />
     <Compile Include="Data\AutofacComponentRegistrySource.cs" />
     <Compile Include="Data\AutofacVisualizer.cs" />
-    <Compile Include="UI\BaseViewModel.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="Core\EventArgs.cs" />
+    <Compile Include="Data\Structures\PreparingObjectEventArgs.cs" />
+    <Compile Include="Data\Structures\Registration.cs" />
+    <Compile Include="Core\BaseViewModel.cs" />
+    <Compile Include="Core\EnumerableExtensions.cs" />
     <Compile Include="Data\GrapherDude.cs" />
     <Compile Include="Data\ObjectSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\ResolutionTracker.cs" />
-    <Compile Include="Data\RegistrationPair.cs" />
-    <Compile Include="UI\RelayCommand.cs" />
-    <Compile Include="Data\TreeBuilder.cs" />
+    <Compile Include="Data\Structures\RegistrationPair.cs" />
+    <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="UI\VisualizerControl.xaml.cs">
       <DependentUpon>VisualizerControl.xaml</DependentUpon>
     </Compile>

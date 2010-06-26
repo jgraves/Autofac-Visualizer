@@ -23,8 +23,9 @@ namespace Graves.Visualizers.Test {
 			builder.RegisterType<UsesString>().As<IGiveString>();
 
 			builder.RegisterType<MakesStrings>();
-
-			using (var container = builder.Build()) AutofacVisualizer.TestShowVisualizer(container);
+			using (var container = builder.Build()) {
+				AutofacVisualizer.TestShowVisualizer(container);
+			}
 		}
 	}
 }

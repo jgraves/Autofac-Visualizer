@@ -3,7 +3,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Graves.Visualizers.Autofac.Core;
 using Graves.Visualizers.Autofac.Data;
+using Graves.Visualizers.Autofac.Data.Structures;
 
 namespace Graves.Visualizers.Autofac.UI {
 
@@ -11,20 +13,20 @@ namespace Graves.Visualizers.Autofac.UI {
 
 		private readonly ObjectSource objectSource;
 
-		private ObservableCollection<Type> buildMap;
+		private ObservableCollection<ActivationData> buildMap;
 		private ICollectionView types;
 
 		public VisualizerViewModel(ObjectSource objectSource) {
 			this.objectSource = objectSource;
 			BuildCommand = new RelayCommand(o => Build(), o1 => Types.CurrentItem != null);
-			BuildMap = new ObservableCollection<Type>();
+			BuildMap = new ObservableCollection<ActivationData>();
 
 			RefreshTypes();
 		}
 
 		public ICommand BuildCommand { get; private set; }
 
-		public ObservableCollection<Type> BuildMap {
+		public ObservableCollection<ActivationData> BuildMap {
 			get { return buildMap; }
 			private set {
 				buildMap = value;
@@ -48,9 +50,7 @@ namespace Graves.Visualizers.Autofac.UI {
 			var item = Types.CurrentItem as Type;
 			if (item == null) return;
 
-			BuildMap = objectSource.GetBuildMap(item)
-				.Select(m => m.Built)
-				.ToObservable();
+			BuildMap = objectSource.GetBuildMap(item).ToObservable();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Graves.Visualizers.Autofac.Data.Structures;
 using QuickGraph;
 using QuickGraph.Algorithms.Observers;
 using QuickGraph.Algorithms.Search;

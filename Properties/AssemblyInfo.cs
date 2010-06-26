@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Autofac;
+using Autofac.Core;
 using Graves.Visualizers.Autofac.Data;
 
 // General Information about an assembly is controlled through the following 
@@ -40,5 +41,5 @@ using Graves.Visualizers.Autofac.Data;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly:
-	DebuggerVisualizer(typeof (AutofacVisualizer), typeof (AutofacComponentRegistrySource), Target = typeof (IContainer))]
+	DebuggerVisualizer(typeof(AutofacVisualizer), typeof(AutofacComponentRegistrySource), Target = typeof(Container))]
 [assembly: AssemblyFileVersion("1.0.0.0")]

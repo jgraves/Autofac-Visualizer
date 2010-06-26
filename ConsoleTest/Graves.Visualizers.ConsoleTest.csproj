@@ -45,17 +45,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TorchLight">
+      <HintPath>..\..\projects\TorchLightOld\TorchLight\bin\Debug\TorchLight.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DummyClasses.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Graves.Visualizers.Autofac.csproj">
-      <Project>{7744A188-A7EC-4DB6-AFAD-B6CE4E3CA762}</Project>
-      <Name>Graves.Visualizers.Autofac</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

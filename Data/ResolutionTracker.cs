@@ -1,23 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac.Core;
+using Graves.Visualizers.Autofac.Data.Structures;
+using NGenerics.DataStructures.Trees;
 
 namespace Graves.Visualizers.Autofac.Data {
 
 	public class ResolutionTracker : IDisposable {
 
-		private readonly List<ActivatingEventArgs<object>> activatedRegistrations = new List<ActivatingEventArgs<object>>();
-		private readonly List<PreparingEventArgs> preparingRegistrations = new List<PreparingEventArgs>();
+		private readonly GeneralTree<Type> tree;
+		private GeneralTree<Type> currentNode;
 
-		private IEnumerable<IComponentRegistration> Registrations { get; set; }
+		private IEnumerable<IRegistration> Registrations { get; set; }
 
-		public ResolutionTracker(IEnumerable<IComponentRegistration> registrations) {
+		public ResolutionTracker(Type typeBeingBuilt, IEnumerable<IRegistration> registrations) {
 			Registrations = registrations;
 			foreach (var r in Registrations) {
 				r.Activating += OnActivating;
 				r.Preparing += OnPreparing;
 			}
+
+			tree = new GeneralTree<Type>(typeBeingBuilt);
+			currentNode = tree;
 		}
 
 		public void Dispose() {
@@ -29,19 +33,34 @@ namespace Graves.Visualizers.Autofac.Data {
 
 		public IEnumerable<ActivationData> Activations {
 			get {
-				return from argses in activatedRegistrations
-							 select new ActivationData { Built = argses.Instance.GetType() };
+				return from node in FlattenTree(tree) select node;
 			}
 		}
 
-		private void OnPreparing(object sender, PreparingEventArgs e) {
-			Console.WriteLine(string.Format("Preparing {0}...", e.Component.Activator.LimitType));
-			preparingRegistrations.Add(e);
+		public IEnumerable<ActivationData> FlattenTree(GeneralTree<Type> treeToFlatten) {
+			foreach (var node in treeToFlatten.ChildNodes) {
+				if (!node.IsLeafNode) {
+					foreach (var childNode in FlattenTree(node)) {
+						yield return childNode;
+					}
+				}
+				yield return new ActivationData { Built = node.Data, Buildees = node.ChildNodes.Select(n => n.Data).ToList() };
+			}
+		}
+		private void OnPreparing(object sender, PreparingObjectEventArgs e) {
+			Console.WriteLine(string.Format("Preparing {0}.", e.Type));
+
+			var newNode = new GeneralTree<Type>(e.Type);
+			currentNode.Add(newNode);
+			currentNode = newNode;
 		}
 
-		private void OnActivating(object sender, ActivatingEventArgs<object> e) {
-			Console.WriteLine(string.Format("Using {0} as {1}.", e.Instance.GetType().Name, e.Component.Activator.LimitType));
-			activatedRegistrations.Add(e);
+		private void OnActivating(object sender, ActivatingObjectEventArgs e) {
+			Console.WriteLine(string.Format("Activating {0} as {1}.", e.Concrete, e.Service));
+			
+			if (e.Concrete == currentNode.Data) {
+				currentNode = currentNode.Parent;
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Autofac;
 using Autofac.Core;
+using Graves.Visualizers.Autofac.Data.Structures;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace Graves.Visualizers.Autofac.Data {
@@ -13,12 +14,14 @@ namespace Graves.Visualizers.Autofac.Data {
 		private IComponentRegistry registry;
 
 		public override void TransferData(object target, Stream incomingData, Stream outgoingData) {
-			var data = Deserialize(incomingData) as Type;
-			if (data == null) return;
+			var type = Deserialize(incomingData) as Type;
+			if (type == null) return;
 
-			using (var tracker = new ResolutionTracker(registry.Registrations)) {
+			var wrappedRegistrations = registry.Registrations.Select(r => new Registration(r));
+
+			using (var tracker = new ResolutionTracker(type, wrappedRegistrations)) {
 				object registration;
-				container.TryResolve(data, out registration);
+				container.TryResolve(type, out registration);
 				Serialize(outgoingData, tracker.Activations.ToList());
 			}
 		}
