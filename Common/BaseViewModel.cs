@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace Graves.Visualizers.Autofac.Core {
+namespace Graves.Visualizers.Autofac.Common {
 	public class BaseViewModel<T> : INotifyPropertyChanged {
 
 		public event PropertyChangedEventHandler PropertyChanged;

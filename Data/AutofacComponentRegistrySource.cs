@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Autofac;
@@ -9,34 +10,27 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 namespace Graves.Visualizers.Autofac.Data {
 
 	public class AutofacComponentRegistrySource : VisualizerObjectSource {
-	
+
 		private IContainer container;
 		private IComponentRegistry registry;
 
 		public override void TransferData(object target, Stream incomingData, Stream outgoingData) {
-			var type = Deserialize(incomingData) as Type;
-			if (type == null) return;
+			var service = Deserialize(incomingData) as ServiceDefinition;
+			if (service == null) return;
 
-			var wrappedRegistrations = registry.Registrations.Select(r => new Registration(r));
+			var wrappedRegistrations = registry.Registrations.Select(r => new Registration(r)).ToList();
 
-			using (var tracker = new ResolutionTracker(type, wrappedRegistrations)) {
+			using (var tracker = new ResolutionTracker(wrappedRegistrations)) {
 				object registration;
-				container.TryResolve(type, out registration);
-				Serialize(outgoingData, tracker.Activations.ToList());
+				container.TryResolve(service.ServiceType, out registration);
+				Serialize(outgoingData, tracker.Activations);
 			}
 		}
 
 		public override void GetData(object target, Stream outgoingData) {
 			container = (IContainer)target;
 			registry = container.ComponentRegistry;
-
-			var registrations = from registration in registry.Registrations
-			                    from service in registration.Services
-			                    select new RegistrationPair {
-			                    	RegisteredType = registration.Activator.LimitType,
-			                    	ServiceType = ((IServiceWithType)service).ServiceType
-			                    };
-
+			var registrations = new ServiceDefinitions(registry.Registrations);
 			Serialize(outgoingData, registrations.ToList());
 		}
 	}

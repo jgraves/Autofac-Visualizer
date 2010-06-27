@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
-using Autofac;
 using Graves.Visualizers.Autofac.Data;
+using Autofac;
 
 namespace Graves.Visualizers.Test {
 	
@@ -21,7 +23,7 @@ namespace Graves.Visualizers.Test {
 
 			builder.RegisterType<UsesInt>().As<IGiveString>();
 			builder.RegisterType<UsesString>().As<IGiveString>();
-
+			builder.RegisterAssemblyTypes(Assembly.LoadFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\NGenerics.dll"));
 			builder.RegisterType<MakesStrings>();
 			using (var container = builder.Build()) {
 				AutofacVisualizer.TestShowVisualizer(container);

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace Graves.Visualizers.Autofac.Core {
+namespace Graves.Visualizers.Autofac.Common {
 
 	public static class EnumerableExtensions {
 	

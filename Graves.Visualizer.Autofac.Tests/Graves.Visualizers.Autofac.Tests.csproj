@@ -33,7 +33,7 @@
   <ItemGroup>
     <Reference Include="Autofac, Version=2.2.4.900, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Autofac.dll</HintPath>
+      <HintPath>..\lib\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\lib\Moq.dll</HintPath>
@@ -41,6 +41,7 @@
     <Reference Include="nunit.framework">
       <HintPath>..\lib\nunit\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +53,8 @@
   <ItemGroup>
     <Compile Include="ResolutionTrackerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceDefinitionsTest.cs" />
+    <Compile Include="TypeDisplayConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Graves.Visualizers.Autofac.csproj">

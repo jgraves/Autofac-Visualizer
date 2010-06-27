@@ -13,12 +13,12 @@ namespace Graves.Visualizers.Autofac.Data {
 			this.provider = provider;
 		}
 
-		public IEnumerable<RegistrationPair> GetRegistrations() {
-			return (IEnumerable<RegistrationPair>)provider.GetObject();
+		public IEnumerable<ServiceDefinition> GetRegistrations() {
+			return (IEnumerable<ServiceDefinition>)provider.GetObject();
 		}
 
-		public IEnumerable<ActivationData> GetBuildMap(Type item) {
-			return (IEnumerable<ActivationData>)provider.TransferObject(item);
+		public ActivationData GetBuildMap(ServiceDefinition item) {
+			return (ActivationData)provider.TransferObject(item);
 		}
 	}
 }

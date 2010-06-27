@@ -1,32 +1,30 @@
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using Graves.Visualizers.Autofac.Core;
+using Graves.Visualizers.Autofac.Common;
 using Graves.Visualizers.Autofac.Data;
 using Graves.Visualizers.Autofac.Data.Structures;
+using QuickGraph;
 
 namespace Graves.Visualizers.Autofac.UI {
 
-	public class VisualizerViewModel : BaseViewModel<VisualizerViewModel> {
+	public class VisualizerViewModel : BaseViewModel<VisualizerViewModel>, IVisualizerViewModel {
 
 		private readonly ObjectSource objectSource;
 
-		private ObservableCollection<ActivationData> buildMap;
-		private ICollectionView types;
+		private ActivationData buildMap;
+		private ICollectionView services;
 
 		public VisualizerViewModel(ObjectSource objectSource) {
 			this.objectSource = objectSource;
-			BuildCommand = new RelayCommand(o => Build(), o1 => Types.CurrentItem != null);
-			BuildMap = new ObservableCollection<ActivationData>();
-
+			BuildCommand = new RelayCommand(o => Build(), o1 => Services.CurrentItem != null);
 			RefreshTypes();
 		}
 
 		public ICommand BuildCommand { get; private set; }
 
-		public ObservableCollection<ActivationData> BuildMap {
+		public ActivationData BuildMap {
 			get { return buildMap; }
 			private set {
 				buildMap = value;
@@ -34,23 +32,23 @@ namespace Graves.Visualizers.Autofac.UI {
 			}
 		}
 
-		public ICollectionView Types {
-			get { return types; }
+		public ICollectionView Services {
+			get { return services; }
 			private set {
-				types = value;
-				NotifyPropertyChanged(vm => vm.Types);
+				services = value;
+				NotifyPropertyChanged(vm => vm.Services);
 			}
 		}
 
 		private void RefreshTypes() {
-			Types = objectSource.GetRegistrations().Select(t => t.ServiceType).Distinct().ToView();
+			Services = objectSource.GetRegistrations().ToView();
 		}
 
 		private void Build() {
-			var item = Types.CurrentItem as Type;
+			var item = Services.CurrentItem as ServiceDefinition;
 			if (item == null) return;
 
-			BuildMap = objectSource.GetBuildMap(item).ToObservable();
+			BuildMap = objectSource.GetBuildMap(item);
 		}
 	}
 }

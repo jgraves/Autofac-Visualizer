@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Graves.Visualizers.Autofac.Core {
+namespace Graves.Visualizers.Autofac.Common {
 	public class RelayCommand : ICommand {
 		private readonly Func<object, bool> canExecute;
 		private readonly Action<object> execute;

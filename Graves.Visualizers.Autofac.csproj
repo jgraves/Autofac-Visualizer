@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>.\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=2.2.4.900, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NGenerics">
@@ -43,46 +44,41 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="QuickGraph">
+    <Reference Include="QuickGraph, Version=3.2.40122.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\QuickGraph.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Data">
-      <HintPath>lib\QuickGraph.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Graphviz">
-      <HintPath>lib\QuickGraph.Graphviz.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Graphviz.Contracts">
-      <HintPath>lib\QuickGraph.Graphviz.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\TypeExtensions.cs" />
     <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
     <Compile Include="Data\Structures\ActivationData.cs" />
     <Compile Include="Data\AutofacComponentRegistrySource.cs" />
     <Compile Include="Data\AutofacVisualizer.cs" />
-    <Compile Include="Core\EventArgs.cs" />
+    <Compile Include="Common\EventArgs.cs" />
     <Compile Include="Data\Structures\PreparingObjectEventArgs.cs" />
     <Compile Include="Data\Structures\Registration.cs" />
-    <Compile Include="Core\BaseViewModel.cs" />
-    <Compile Include="Core\EnumerableExtensions.cs" />
-    <Compile Include="Data\GrapherDude.cs" />
+    <Compile Include="Common\BaseViewModel.cs" />
+    <Compile Include="Common\EnumerableExtensions.cs" />
     <Compile Include="Data\ObjectSource.cs" />
+    <Compile Include="Data\Structures\ServiceDefinitions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\ResolutionTracker.cs" />
-    <Compile Include="Data\Structures\RegistrationPair.cs" />
-    <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="Data\Structures\ServiceDefinition.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="UI\DesignTimeVisualizerViewModel.cs" />
+    <Compile Include="UI\IVisualizerViewModel.cs" />
+    <Compile Include="UI\TypeDisplayConverter.cs" />
     <Compile Include="UI\VisualizerControl.xaml.cs">
       <DependentUpon>VisualizerControl.xaml</DependentUpon>
     </Compile>
