@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Reflection;
+using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Graves.Visualizers.Autofac.UI;
 using Microsoft.VisualStudio.DebuggerVisualizers;
@@ -8,6 +9,8 @@ namespace Graves.Visualizers.Autofac.Data {
 	public class AutofacVisualizer : DialogDebuggerVisualizer {
 	
 		protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider) {
+			System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+
 			var objectSource = new ObjectSource(objectProvider);
 
 			//var dude = new GrapherDude(list);

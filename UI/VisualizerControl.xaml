@@ -2,8 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:UI="clr-namespace:Graves.Visualizers.Autofac.UI"
-             xmlns:Structures="clr-namespace:Graves.Visualizers.Autofac.Data.Structures"
-             Height="600"
+             xmlns:Structures="clr-namespace:Graves.Visualizers.Autofac.Data.Structures" xmlns:Drawing="clr-namespace:System.Drawing;assembly=System.Drawing" Height="600"
              Width="400"
              FontFamily="Calibri"
              FontSize="14">
@@ -12,6 +11,15 @@
         <ObjectDataProvider ObjectType="{x:Type UI:DesignTimeVisualizerViewModel}" />
     </UserControl.DataContext>
 
+    <UserControl.Background>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Offset="0"
+                          Color="#FFFFFF" />
+            <GradientStop Offset="1"
+                          Color="#CCCCCC" />
+        </LinearGradientBrush>
+    </UserControl.Background>
     <UserControl.Resources>
 
         <UI:TypeDisplayConverter x:Key="typeConverter" />
@@ -21,7 +29,7 @@
         <!-- Background of selected item when not focussed -->
         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}"
                          Color="Transparent" />
-        
+
         <Style TargetType="{x:Type ListBoxItem}">
             <Style.Triggers>
                 <Trigger Property="IsSelected"
@@ -52,10 +60,13 @@
                     Value="Stretch" />
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                     Value="Disabled" />
+            <Setter Property="Background"
+                    Value="Transparent" />
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"
+                        <WrapPanel UI:PanelLayoutAnimator.IsAnimationEnabled="True"
+                                   Orientation="Horizontal"
                                    HorizontalAlignment="Center" />
                     </ItemsPanelTemplate>
                 </Setter.Value>
@@ -63,63 +74,80 @@
         </Style>
 
         <DataTemplate DataType="{x:Type Structures:ServiceDefinition}">
+            <Border BorderThickness="1"
+                    BorderBrush="Transparent"
+                    Name="selectedBorder"
+                    CornerRadius="6"
+                    Padding="5"
+                    Margin="5">
                 <StackPanel>
-                <Border   Name="itemBorder"
-                          HorizontalAlignment="Center"
-                          BorderBrush="Black"
-                          BorderThickness="1"
-                          CornerRadius="6"
-                          Padding="10"
-                          Margin="10"
-                          Background="White">
-                    <Border.Effect>
-                        <DropShadowEffect Color="DarkGray"
-                                          ShadowDepth="2"
-                                          BlurRadius="5" />
-                    </Border.Effect>
+                    <Border Name="itemBorder"
+                            HorizontalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="10"
+                            Margin="10"
+                            Background="White">
+                        <Border.Effect>
+                            <DropShadowEffect Color="LightGray"
+                                              ShadowDepth="2"
+                                              BlurRadius="5" />
+                        </Border.Effect>
 
-                    <TextBlock FontSize="26"
-                               Style="{DynamicResource trimmedText}"
-                               HorizontalAlignment="Center"
-                               Text="{Binding ServiceType, Converter={StaticResource typeConverter}}" />
-                </Border>
+                        <TextBlock FontSize="26"
+                                   Style="{DynamicResource trimmedText}"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding ServiceType, Converter={StaticResource typeConverter}}" />
+                    </Border>
 
-                <!--<ItemsControl Visibility="Collapsed" ItemsSource="{Binding RegisteredTypes}"
-                              HorizontalContentAlignment="Stretch"
-                              HorizontalAlignment="Stretch">
+                    <ItemsControl ItemsSource="{Binding RegisteredTypes}"
+                                  HorizontalContentAlignment="Stretch"
+                                  HorizontalAlignment="Stretch">
 
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center"
-                                        Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel HorizontalAlignment="Center"
+                                            Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border    HorizontalAlignment="Center"
-                                       BorderBrush="Black"
-                                       BorderThickness="1"
-                                       CornerRadius="4"
-                                       Padding="6"
-                                       Margin="6">
-                                <TextBlock FontSize="16" Style="{DynamicResource trimmedText}"
-                                           HorizontalAlignment="Center"
-                                           Text="{Binding Converter={StaticResource typeConverter}}" />
-                            </Border>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border    HorizontalAlignment="Center"
+                                           BorderBrush="Black"
+                                           BorderThickness="1"
+                                           CornerRadius="4"
+                                           Padding="6"
+                                           Margin="6"
+                                           Background="White">
+                                    <TextBlock FontSize="14"
+                                               Style="{DynamicResource trimmedText}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding Converter={StaticResource typeConverter}}" />
+                                </Border>
 
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>-->
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-            </StackPanel>
+                </StackPanel>
+            </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
-                         Value="True">
+                             Value="True">
                     <DataTrigger.Setters>
                         <Setter TargetName="itemBorder"
-                                Property="BorderThickness"
-                                Value="5" />
+                                Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="5"
+                                                  Color="DarkGray"
+                                                  BlurRadius="5" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="selectedBorder"
+                                Property="BorderBrush"
+                                Value="Black" />
                     </DataTrigger.Setters>
                 </DataTrigger>
             </DataTemplate.Triggers>
@@ -134,8 +162,33 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0"
-               Content="Registered Services" />
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       FontWeight="Bold"
+                       Text="Registered Services:" />
+            <TextBlock Margin="20,5,5,5"
+                       Grid.Row="1"
+                       TextWrapping="Wrap">
+            		The Autofac container has the following 
+                    <Hyperlink>services<UI:PopupHelp.HelpTip>
+                            Services in the Autofac world represent a well-defined contract 
+                            that a component provides. The IEnumerable&lt;T&gt; interface 
+                            is an example of a Service that the concrete implementation of List&lt;T&gt;
+                            provides. A service can be provided by multiple components, vice-versa, 
+                            one component can provide multiple services.
+                        </UI:PopupHelp.HelpTip>
+            		  </Hyperlink>
+                     and <Hyperlink>components<UI:PopupHelp.HelpTip>
+                    Components are a concrete implementation of a particular service. One component can provide multiple services.
+                   </UI:PopupHelp.HelpTip>
+                    </Hyperlink> registered.
+
+            </TextBlock>
+        </Grid>
 
         <ListBox Grid.Row="1"
                  ItemsSource="{Binding Services}"

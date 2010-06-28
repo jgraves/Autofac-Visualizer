@@ -1,0 +1,76 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="Hyperlink"
+           x:Key="tooltipTemplate">
+
+        <Setter Property="Foreground"
+                Value="MidnightBlue" />
+
+        <Setter Property="TextDecorations">
+
+            <Setter.Value>
+                <TextDecorationCollection>
+                    <TextDecoration>
+                        <TextDecoration.Pen>
+                            <Pen Brush="Black">
+                                <Pen.DashStyle>
+                                    <DashStyle Dashes="0,3" />
+                                </Pen.DashStyle>
+                            </Pen>
+                        </TextDecoration.Pen>
+                    </TextDecoration>
+                </TextDecorationCollection>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ToolTip">
+            <Setter.Value>
+                <Grid>
+                    <Image Width="70"
+                           Height="70"
+                           Source="{Binding ImageSource}"
+                           Opacity=".3"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top">
+                        <Image.RenderTransform>
+                            <TranslateTransform X="-10"
+                                                Y="-10" />
+                        </Image.RenderTransform>
+                    </Image>
+                    
+                    <Image Width="70"
+                           Height="70"
+                           Source="{Binding ImageSource}"
+                           Opacity=".3"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top">
+                        <Image.OpacityMask>
+                            <LinearGradientBrush StartPoint="0,1"
+                                                 EndPoint="0,0">
+                                <GradientStop Color="#AA111111"
+                                              Offset="0" />
+                                <GradientStop Color="#11111111"
+                                              Offset=".4" />
+                                <GradientStop Color="#00111111"
+                                              Offset=".5" />
+                            </LinearGradientBrush>
+                        </Image.OpacityMask>
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                            	<ScaleTransform ScaleY="-1" />
+                            	<TranslateTransform X="-10"
+                                                    Y="130" />
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    
+                    <TextBlock Margin="20"
+                               Text="{Binding Text}"
+                               TextWrapping="WrapWithOverflow"
+                               MaxWidth="200" />
+                </Grid>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
