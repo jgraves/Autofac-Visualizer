@@ -5,18 +5,17 @@ using System.Windows.Input;
 using Graves.Visualizers.Autofac.Common;
 using Graves.Visualizers.Autofac.Data;
 using Graves.Visualizers.Autofac.Data.Structures;
-using QuickGraph;
 
 namespace Graves.Visualizers.Autofac.UI {
 
 	public class VisualizerViewModel : BaseViewModel<VisualizerViewModel>, IVisualizerViewModel {
 
-		private readonly ObjectSource objectSource;
+		private readonly IObjectSource objectSource;
 
 		private ActivationData buildMap;
 		private ICollectionView services;
 
-		public VisualizerViewModel(ObjectSource objectSource) {
+		public VisualizerViewModel(IObjectSource objectSource) {
 			this.objectSource = objectSource;
 			BuildCommand = new RelayCommand(o => Build(), o1 => Services.CurrentItem != null);
 			RefreshTypes();
@@ -37,6 +36,26 @@ namespace Graves.Visualizers.Autofac.UI {
 			private set {
 				services = value;
 				NotifyPropertyChanged(vm => vm.Services);
+			}
+		}
+
+		public bool ShowDetails {
+			get { return Services.Cast<ServiceDefinition>().Count() < 6; }
+		}
+
+		private string filterText = String.Empty;
+
+		public string FilterText {
+			get { return filterText; }
+			set {
+				filterText = value;
+				Services.Filter =
+					delegate(object o) {
+            Func<Type, bool> contains = t => t.ToGenericTypeString().ToLower().Contains(value.ToLower());
+						var definition = ((ServiceDefinition)o);
+						return contains(definition.ServiceType) || definition.RegisteredTypes.Any(contains);
+					};
+				NotifyPropertyChanged(vm => vm.FilterText);
 			}
 		}
 

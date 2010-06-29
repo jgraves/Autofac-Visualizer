@@ -19,7 +19,7 @@ namespace Graves.Visualizers.Autofac.Common {
 					t.GetGenericArguments()
 							.Select(ToGenericTypeString).ToArray());
 			
-			return genericTypeName + "<" + genericArgs + ">";
+			return genericTypeName + "<" + genericArgs.Replace(",", ", ") + ">";
 		}
 	}
 }
