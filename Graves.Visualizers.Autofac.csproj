@@ -12,6 +12,7 @@
     <AssemblyName>Graves.Visualizers.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,10 +53,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
@@ -80,11 +80,13 @@
     <Compile Include="UI\IVisualizerViewModel.cs" />
     <Compile Include="UI\PanelAnimator.cs" />
     <Compile Include="UI\PopupHelp.cs" />
+    <Compile Include="UI\ReflectionControl.cs" />
     <Compile Include="UI\TypeDisplayConverter.cs" />
     <Compile Include="UI\VisualizerControl.xaml.cs">
       <DependentUpon>VisualizerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\VisualizerViewModel.cs" />
+    <Compile Include="UI\VisualTreeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\VisualizerControl.xaml">

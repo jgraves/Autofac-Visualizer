@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Graves.Visualizers.Autofac.UI;
@@ -6,30 +7,30 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace Graves.Visualizers.Autofac.Data {
 
-	public class AutofacVisualizer : DialogDebuggerVisualizer {
-	
-		protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider) {
-			System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
+  public class AutofacVisualizer : DialogDebuggerVisualizer {
 
-			var objectSource = new ObjectSource(objectProvider);
+    protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider) {
+      System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
-			//var dude = new GrapherDude(list);
-			//var nodes = dude.Build();
-			//var tree = new TreeBuilder(nodes);
+      var objectSource = new ObjectSource(objectProvider);
 
-			var viewModel = new VisualizerViewModel(objectSource);
-			var child = new VisualizerControl(viewModel);
+      //var dude = new GrapherDude(list);
+      //var nodes = dude.Build();
+      //var tree = new TreeBuilder(nodes);
 
-			var host = new ElementHost {AutoSize = true, Dock = DockStyle.Fill};
-			host.Child = child;
+      var viewModel = new VisualizerViewModel(objectSource);
+      var child = new VisualizerControl(viewModel);
 
-			windowService.ShowDialog(host);
-		}
+      var host = new ElementHost { Dock = DockStyle.Fill, MinimumSize = new Size(600, 600) };
+      host.Child = child;
 
-		public static void TestShowVisualizer(object objectToVisualize) {
-			var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof (AutofacVisualizer),
-			                                                   typeof (AutofacComponentRegistrySource));
-			visualizerHost.ShowVisualizer();
-		}
-	}
+      windowService.ShowDialog(host);
+    }
+
+    public static void TestShowVisualizer(object objectToVisualize) {
+      var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(AutofacVisualizer),
+                                                         typeof(AutofacComponentRegistrySource));
+      visualizerHost.ShowVisualizer();
+    }
+  }
 }

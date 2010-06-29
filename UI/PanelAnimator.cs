@@ -115,8 +115,9 @@ namespace Graves.Visualizers.Autofac.UI {
 
 		// Create an animation to decay from start to 0 over .5 seconds
 		private static DoubleAnimation MakeAnimation(double start) {
-			var animation = new DoubleAnimation(start, 0d, new Duration(TimeSpan.FromSeconds(1)))
-			                {EasingFunction = new QuarticEase()};
+			var animation = new DoubleAnimation(start, 0d, new Duration(TimeSpan.FromSeconds(.4))) {
+				EasingFunction = new CubicEase()
+			};
 			return animation;
 		}
 
