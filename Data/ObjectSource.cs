@@ -4,8 +4,12 @@ using Graves.Visualizers.Autofac.Data.Structures;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace Graves.Visualizers.Autofac.Data {
-	
-	public class ObjectSource {
+	public interface IObjectSource {
+		IEnumerable<ServiceDefinition> GetRegistrations();
+		ActivationData GetBuildMap(ServiceDefinition item);
+	}
+
+	public class ObjectSource : IObjectSource {
 
 		private readonly IVisualizerObjectProvider provider;
 

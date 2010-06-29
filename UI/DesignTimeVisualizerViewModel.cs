@@ -47,6 +47,15 @@ namespace Graves.Visualizers.Autofac.UI {
 			}
 		}
 
+		public bool ShowDetails {
+			get { return true; }
+		}
+
+		public string FilterText {
+			get { return "Filter"; }
+			set {  }
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }
