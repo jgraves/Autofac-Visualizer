@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
-using Graves.Visualizers.Autofac.Data;
+using System.Windows;
 using Autofac;
+using Graves.Visualizers.Autofac.Data;
+using Graves.Visualizers.Autofac.Data.Structures;
+using Graves.Visualizers.Autofac.UI;
 
 namespace Graves.Visualizers.Test {
-	
+
 	public class Program {
 
 		[STAThread]
@@ -29,7 +33,43 @@ namespace Graves.Visualizers.Test {
 			builder.RegisterAssemblyTypes(Assembly.LoadFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\NGenerics.dll"));
 			builder.RegisterType<MakesStrings>();
 			using (var container = builder.Build()) {
-				AutofacVisualizer.TestShowVisualizer(container);
+
+				var vm = new VisualizerViewModel(new TestObjectSource(container));
+				new Window() {
+					Content = new VisualizerControl(vm) {
+						HorizontalAlignment = HorizontalAlignment.Stretch,
+						VerticalAlignment = VerticalAlignment.Stretch
+					},
+					Width = 600,
+					Height = 600
+				}.ShowDialog();
+				//AutofacVisualizer.TestShowVisualizer(container);
+			}
+		}
+
+		private class TestObjectSource : IObjectSource {
+			private readonly IContainer container;
+
+			public TestObjectSource(IContainer container) {
+				this.container = container;
+			}
+
+			public IEnumerable<ServiceDefinition> GetRegistrations() {
+				return new ServiceDefinitions(container.ComponentRegistry.Registrations);
+			}
+
+			public ActivationData GetBuildMap(ServiceDefinition item) {
+
+				var wrappedRegistrations = container.ComponentRegistry.Registrations.Select(r => new Registration(r)).ToList();
+
+				ActivationData data;
+				using (var tracker = new ResolutionTracker(wrappedRegistrations)) {
+					object registration;
+					container.TryResolve(item.ServiceType, out registration);
+					data = tracker.Activations;
+				}
+
+				return data;
 			}
 		}
 	}
