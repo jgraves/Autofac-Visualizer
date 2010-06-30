@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Documents;
@@ -7,7 +6,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Controls {
 
 	public class HelpTip {
 		public ImageSource ImageSource { get; set; }
@@ -31,7 +30,7 @@ namespace Graves.Visualizers.Autofac.UI {
 			if (hyperlink == null) throw new ArgumentException("This attached property is only valid on Hyperlinks.");
 
 			var rd = new ResourceDictionary {
-				Source = new Uri("pack://application:,,,/Graves.Visualizers.Autofac;component/UI/Resources.xaml")
+				Source = new Uri("pack://application:,,,/Graves.Visualizers.Autofac;component/Resources/Resources.xaml")
 			};
 			var style = (Style)rd["tooltipTemplate"];
 			hyperlink.Style = style;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Graves.Visualizers.Autofac.UI;
+using Graves.Visualizers.Autofac.UI.Controls;
 using NUnit.Framework;
 
 namespace Graves.Visualizer.Autofac.Tests {

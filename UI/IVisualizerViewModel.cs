@@ -9,6 +9,6 @@ namespace Graves.Visualizers.Autofac.UI {
 		ActivationData BuildMap { get; }
 		ICollectionView Services { get; }
 		string FilterText { get; set; }
-		event EventHandler ShowBuildMap;
+    View CurrentView { get; }
 	}
 }

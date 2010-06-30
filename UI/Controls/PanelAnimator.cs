@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Controls {
 
 	//Taken from: http://blogs.msdn.com/b/dancre/archive/2006/03/04/attaching-behavior-to-an-avalon-element-in-xaml.aspx
 	public class PanelLayoutAnimator {

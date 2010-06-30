@@ -1,9 +1,8 @@
-using System;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Controls {
 	public static class AttachedAdorner {
 
 		public static Visual GetAdornWith(DependencyObject obj) {

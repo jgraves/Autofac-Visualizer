@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Extensions {
 	static class VisualTreeExtensions {
 
 		public static T FirstWithValueFor<T>(this IEnumerable<T> objs, DependencyProperty prop) where T : DependencyObject {

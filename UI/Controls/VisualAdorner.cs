@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Controls {
 	public class VisualAdorner : Adorner {
 		readonly VisualCollection children;
 		readonly FrameworkElement child;

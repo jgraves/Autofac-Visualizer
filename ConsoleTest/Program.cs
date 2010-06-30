@@ -34,16 +34,16 @@ namespace Graves.Visualizers.Test {
 			builder.RegisterType<MakesStrings>();
 			using (var container = builder.Build()) {
 
-				var vm = new VisualizerViewModel(new TestObjectSource(container));
-				new Window() {
-					Content = new VisualizerControl(vm) {
-						HorizontalAlignment = HorizontalAlignment.Stretch,
-						VerticalAlignment = VerticalAlignment.Stretch
-					},
-					Width = 600,
-					Height = 600
-				}.ShowDialog();
-				//AutofacVisualizer.TestShowVisualizer(container);
+        //var vm = new VisualizerViewModel(new TestObjectSource(container));
+        //new Window() {
+        //  Content = new VisualizerControl(vm) {
+        //    HorizontalAlignment = HorizontalAlignment.Stretch,
+        //    VerticalAlignment = VerticalAlignment.Stretch
+        //  },
+        //  Width = 600,
+        //  Height = 600
+        //}.ShowDialog();
+				AutofacVisualizer.TestShowVisualizer(container);
 			}
 		}
 

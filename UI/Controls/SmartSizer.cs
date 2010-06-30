@@ -1,12 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using NGenerics.Extensions;
 using Graves.Visualizers.Autofac.Common;
+using Graves.Visualizers.Autofac.UI.Extensions;
+using NGenerics.Extensions;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Controls {
 
 	public class IsDetailChangedArgs : RoutedEventArgs {
 		public IsDetailChangedArgs(object source, bool isDetailShown)

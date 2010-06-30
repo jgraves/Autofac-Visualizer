@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Extensions {
 	public static class SizeExtensions {
 		public static bool CanContain(this Size container, Size child) {
 			return container.Width.ToLessPrecise() >= child.Width.ToLessPrecise() && container.Height.ToLessPrecise() >= child.Height.ToLessPrecise();

@@ -5,69 +5,85 @@ using System.Windows.Input;
 using Graves.Visualizers.Autofac.Common;
 using Graves.Visualizers.Autofac.Data;
 using Graves.Visualizers.Autofac.Data.Structures;
+using Graves.Visualizers.Autofac.UI.Core;
 
 namespace Graves.Visualizers.Autofac.UI {
 
-	public class VisualizerViewModel : BaseViewModel<VisualizerViewModel>, IVisualizerViewModel {
+  public enum View {
+    BuildMap,
+    Container
+  }
 
-		private readonly IObjectSource objectSource;
+  public class VisualizerViewModel : BaseViewModel<VisualizerViewModel>, IVisualizerViewModel {
 
-		private ActivationData buildMap;
-		private ICollectionView services;
+    private readonly IObjectSource objectSource;
 
-		public VisualizerViewModel(IObjectSource objectSource) {
-			this.objectSource = objectSource;
-			BuildCommand = new RelayCommand(o => Build(), o1 => Services.CurrentItem != null);
-			RefreshTypes();
-		}
+    private ActivationData buildMap;
+    private ICollectionView services;
 
-		public ICommand BuildCommand { get; private set; }
+    public VisualizerViewModel(IObjectSource objectSource) {
+      this.objectSource = objectSource;
+      BuildCommand = new RelayCommand(o => Build(), o1 => Services.CurrentItem != null);
+      ReturnToContainerCommand = new RelayCommand(o => CurrentView = View.Container, o1 => true);
+      CurrentView = View.Container;
+      RefreshTypes();
+    }
 
-		public ActivationData BuildMap {
-			get { return buildMap; }
-			private set {
-				buildMap = value;
-				NotifyPropertyChanged(vm => vm.BuildMap);
-			}
-		}
+    public ICommand BuildCommand { get; private set; }
+    public ICommand ReturnToContainerCommand { get; private set; }
 
-		public ICollectionView Services {
-			get { return services; }
-			private set {
-				services = value;
-				NotifyPropertyChanged(vm => vm.Services);
-			}
-		}
+    public ActivationData BuildMap {
+      get { return buildMap; }
+      private set {
+        buildMap = value;
+        NotifyPropertyChanged(vm => vm.BuildMap);
+      }
+    }
 
-		private string filterText = String.Empty;
+    private View currentView;
 
-		public string FilterText {
-			get { return filterText; }
-			set {
-				filterText = value;
-				Services.Filter =
-					delegate(object o) {
+    public View CurrentView {
+      get { return currentView; }
+      private set {
+        currentView = value;
+        NotifyPropertyChanged(vm => vm.CurrentView);
+      }
+    }
+
+    public ICollectionView Services {
+      get { return services; }
+      private set {
+        services = value;
+        NotifyPropertyChanged(vm => vm.Services);
+      }
+    }
+
+    private string filterText = String.Empty;
+
+    public string FilterText {
+      get { return filterText; }
+      set {
+        filterText = value;
+        Services.Filter =
+          delegate(object o) {
             Func<Type, bool> contains = t => t.ToGenericTypeString().ToLower().Contains(value.ToLower());
-						var definition = ((ServiceDefinition)o);
-						return contains(definition.ServiceType) || definition.RegisteredTypes.Any(contains);
-					};
-				NotifyPropertyChanged(vm => vm.FilterText);
-			}
-		}
+            var definition = ((ServiceDefinition)o);
+            return contains(definition.ServiceType) || definition.RegisteredTypes.Any(contains);
+          };
+        NotifyPropertyChanged(vm => vm.FilterText);
+      }
+    }
 
-		private void RefreshTypes() {
-			Services = objectSource.GetRegistrations().ToView();
-		}
+    private void RefreshTypes() {
+      Services = objectSource.GetRegistrations().ToView();
+    }
 
-		public event EventHandler ShowBuildMap;
+    private void Build() {
+      var item = Services.CurrentItem as ServiceDefinition;
+      if (item == null) return;
 
-		private void Build() {
-			var item = Services.CurrentItem as ServiceDefinition;
-			if (item == null) return;
-
-			BuildMap = objectSource.GetBuildMap(item);
-
-			if (ShowBuildMap != null) ShowBuildMap(this, EventArgs.Empty);
-		}
-	}
+      BuildMap = objectSource.GetBuildMap(item);
+      CurrentView = View.BuildMap;
+    }
+  }
 }

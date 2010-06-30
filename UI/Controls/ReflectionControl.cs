@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Graves.Visualizers.Autofac.UI {
+namespace Graves.Visualizers.Autofac.UI.Controls {
 	public class ReflectionControl : Decorator {
 		private readonly VisualBrush reflection;
 		private readonly LinearGradientBrush opacityMask;
