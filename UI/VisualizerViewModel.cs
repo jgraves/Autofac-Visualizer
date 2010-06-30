@@ -39,10 +39,6 @@ namespace Graves.Visualizers.Autofac.UI {
 			}
 		}
 
-		public bool ShowDetails {
-			get { return Services.Cast<ServiceDefinition>().Count() < 6; }
-		}
-
 		private string filterText = String.Empty;
 
 		public string FilterText {
@@ -63,11 +59,15 @@ namespace Graves.Visualizers.Autofac.UI {
 			Services = objectSource.GetRegistrations().ToView();
 		}
 
+		public event EventHandler ShowBuildMap;
+
 		private void Build() {
 			var item = Services.CurrentItem as ServiceDefinition;
 			if (item == null) return;
 
 			BuildMap = objectSource.GetBuildMap(item);
+
+			if (ShowBuildMap != null) ShowBuildMap(this, EventArgs.Empty);
 		}
 	}
 }

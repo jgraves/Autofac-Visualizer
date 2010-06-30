@@ -24,11 +24,18 @@ namespace Graves.Visualizers.Autofac.UI {
 						Buildees = new List<ActivationData> {
 						 new ActivationData{Built	= typeof(int)},
 						 new ActivationData{Built	= typeof(string)},
-						 new ActivationData{Built	= typeof(long)},
+						 new ActivationData{Built	= typeof(long), Buildees=
+						 new List<ActivationData> {
+						 	new ActivationData{Built = typeof(DateTime)},
+						 	new ActivationData{Built = typeof(ReflectionControl)},
+						 	new ActivationData{Built = typeof(IEnumerable<>)},
+						 }},
 						}
 					};
 			}
 		}
+
+		public event EventHandler ShowBuildMap;
 
 		public ICollectionView Services {
 			get {
@@ -41,14 +48,22 @@ namespace Graves.Visualizers.Autofac.UI {
 					},
 					new ServiceDefinition{ServiceType = typeof(IEnumerable<char>), 
 						RegisteredTypes = new List<Type>{typeof(string)}
+					},
+					new ServiceDefinition{ServiceType = typeof(IEnumerable<char>), 
+						RegisteredTypes = new List<Type>{typeof(string)}
+					},
+					new ServiceDefinition{ServiceType = typeof(IEnumerable<char>), 
+						RegisteredTypes = new List<Type>{typeof(string)}
+					},
+					new ServiceDefinition{ServiceType = typeof(IEnumerable<char>), 
+						RegisteredTypes = new List<Type>{typeof(string)}
+					},
+					new ServiceDefinition{ServiceType = typeof(IEnumerable<char>), 
+						RegisteredTypes = new List<Type>{typeof(string)}
 					}
 				}
 				.ToView();
 			}
-		}
-
-		public bool ShowDetails {
-			get { return true; }
 		}
 
 		public string FilterText {
