@@ -16,7 +16,7 @@ namespace AutofacVisualizer.Data {
 			var service = Deserialize(incomingData) as ServiceDefinition;
 			if (service == null) return;
 
-			var wrappedRegistrations = registry.Registrations.Select(r => new Registration(r)).ToList();
+			var wrappedRegistrations = registry.Registrations.Select(r => (IRegistration)new Registration(r)).ToList();
 
 			using (var tracker = new ResolutionTracker(wrappedRegistrations)) {
 				object registration;

@@ -36,7 +36,7 @@
                 <Setter.Value>
                     <ItemsPanelTemplate>
                         <UniformGrid Controls:SmartSizer.SizeSmartly="True"
-                                Controls:PanelLayoutAnimator.IsAnimationEnabled="True" />
+                                Controls:PanelLayoutAnimator.IsAnimationEnabled="False" />
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
@@ -119,11 +119,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetName="buildButton" Storyboard.TargetProperty="Opacity"
-                                        To="1" Duration="0:0:.5">
-                                    <DoubleAnimation.EasingFunction>
-                                        <CubicEase />
-                                    </DoubleAnimation.EasingFunction>
-                                </DoubleAnimation>
+                                        To="1" Duration="0:0:.5"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -131,11 +127,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetName="buildButton" Storyboard.TargetProperty="Opacity"
-                                        To="0" Duration="0:0:.5">
-                                    <DoubleAnimation.EasingFunction>
-                                        <CubicEase />
-                                    </DoubleAnimation.EasingFunction>
-                                </DoubleAnimation>
+                                        To="0" Duration="0:0:.5"/>
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>

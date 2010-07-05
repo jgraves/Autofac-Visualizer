@@ -13,11 +13,6 @@ namespace AutofacVisualizer.Data {
       System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
       var objectSource = new ObjectSource(objectProvider);
-
-      //var dude = new GrapherDude(list);
-      //var nodes = dude.Build();
-      //var tree = new TreeBuilder(nodes);
-
       var viewModel = new VisualizerViewModel(objectSource);
       var child = new VisualizerControl(viewModel);
 

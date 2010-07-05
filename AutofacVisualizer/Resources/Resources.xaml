@@ -1,11 +1,24 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls" x:Class="AutofacVisualizer.Resources.c__users_jgraves_desktop_debuggervisualizer_resources_resources_xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls"
+        x:Class="AutofacVisualizer.Resources.c__users_jgraves_desktop_debuggervisualizer_resources_resources_xaml">
 
-    <Style TargetType="Hyperlink"
-           x:Key="tooltipTemplate">
+    <Grid x:Key="tooltipContent">
+        <Controls:ReflectionControl HorizontalAlignment="Left" VerticalAlignment="Top" Opacity=".3">
+            <Image Width="70" Height="70" Source="{Binding ImageSource}" />
 
-        <Setter Property="Foreground"
-                Value="MidnightBlue" />
+            <Controls:ReflectionControl.RenderTransform>
+                <TranslateTransform X="-10" Y="-10" />
+            </Controls:ReflectionControl.RenderTransform>
+        </Controls:ReflectionControl>
+
+        <TextBlock Margin="20" Text="{Binding Text}" TextWrapping="WrapWithOverflow" MaxWidth="200" />
+    </Grid>
+    
+    <Style TargetType="Hyperlink" x:Key="tooltipTemplate" x:Shared="false">
+
+        
+        <Setter Property="Foreground" Value="MidnightBlue" />
 
         <Setter Property="TextDecorations">
 
@@ -24,28 +37,8 @@
             </Setter.Value>
         </Setter>
 
-        <Setter Property="ToolTip">
-            <Setter.Value>
-                <Grid>
-                    <Controls:ReflectionControl HorizontalAlignment="Left"
-                                          VerticalAlignment="Top"
-                                          Opacity=".3">
-                        <Image Width="70"
-                               Height="70"
-                               Source="{Binding ImageSource}">
-
-                        </Image>
-                        <Controls:ReflectionControl.RenderTransform>
-                            <TranslateTransform X="-10" Y="-10" />
-                        </Controls:ReflectionControl.RenderTransform>
-                    </Controls:ReflectionControl>
-
-                    <TextBlock Margin="20"
-                               Text="{Binding Text}"
-                               TextWrapping="WrapWithOverflow"
-                               MaxWidth="200" />
-                </Grid>
-            </Setter.Value>
+        <Setter Property="ToolTip" Value="{StaticResource tooltipContent}">
+            
         </Setter>
     </Style>
 </ResourceDictionary>

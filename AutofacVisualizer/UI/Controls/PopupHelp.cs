@@ -30,7 +30,7 @@ namespace AutofacVisualizer.UI.Controls {
 			if (hyperlink == null) throw new ArgumentException("This attached property is only valid on Hyperlinks.");
 
 			var rd = new ResourceDictionary {
-				Source = new Uri("pack://application:,,,/Graves.Visualizers.Autofac;component/Resources/Resources.xaml")
+				Source = new Uri("pack://application:,,,/AutofacVisualizer;component/Resources/Resources.xaml")
 			};
 			var style = (Style)rd["tooltipTemplate"];
 			hyperlink.Style = style;
