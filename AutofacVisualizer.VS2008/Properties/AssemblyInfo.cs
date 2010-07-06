@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using Autofac;
 using Autofac.Core;
 using AutofacVisualizer.Data;
+using AutofacVisualizer.VS2008;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -41,5 +42,5 @@ using AutofacVisualizer.Data;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly:
-	DebuggerVisualizer(typeof(AutofacVisualizer.Data.AutofacDialogVisualizer), typeof(AutofacComponentRegistrySource), Target = typeof(Container))]
+	DebuggerVisualizer(typeof(AutofacDialogVisualizer), typeof(AutofacComponentRegistrySource), Target = typeof(Container))]
 [assembly: AssemblyFileVersion("1.0.0.0")]

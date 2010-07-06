@@ -1,12 +1,9 @@
 using System.Collections.Generic;
+using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Structures;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
-namespace AutofacVisualizer.Data {
-	public interface IObjectSource {
-		IEnumerable<ServiceDefinition> GetRegistrations();
-		ActivationData GetBuildMap(ServiceDefinition item);
-	}
+namespace AutofacVisualizer.VS2010 {
 
 	public class ObjectSource : IObjectSource {
 

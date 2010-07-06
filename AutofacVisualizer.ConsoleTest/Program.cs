@@ -41,7 +41,7 @@ namespace AutofacVisualizer.ConsoleTest {
         //  Width = 600,
         //  Height = 600
         //}.ShowDialog();
-				AutofacDialogVisualizer.TestShowVisualizer(container);
+			AutofacVisualizer.VS2010.AutofacDialogVisualizer.TestShowVisualizer(container);
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace AutofacVisualizer.ConsoleTest {
 				var wrappedRegistrations = container.ComponentRegistry.Registrations.Select(r => new Registration(r)).ToList();
 
 				ActivationData data;
-				using (var tracker = new ResolutionTracker(wrappedRegistrations)) {
+				using (var tracker = new ResolutionTracker(wrappedRegistrations.Cast<IRegistration>())) {
 					object registration;
 					container.TryResolve(item.ServiceType, out registration);
 					data = tracker.Activations;
