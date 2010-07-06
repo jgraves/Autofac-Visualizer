@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Common\DictionaryExtensions.cs" />
     <Compile Include="Common\TypeExtensions.cs" />
+    <Compile Include="Data\AutofacData.cs" />
     <Compile Include="Data\IObjectProvider.cs" />
     <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
     <Compile Include="Data\Structures\ActivationData.cs" />

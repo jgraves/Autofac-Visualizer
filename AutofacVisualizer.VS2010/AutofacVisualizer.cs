@@ -25,7 +25,7 @@ namespace AutofacVisualizer.VS2010 {
 
     public static void TestShowVisualizer(object objectToVisualize) {
       var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(AutofacDialogVisualizer),
-                                                         typeof(AutofacComponentRegistrySource));
+                                                         typeof(AutofacObjectSource));
       visualizerHost.ShowVisualizer();
     }
   }
