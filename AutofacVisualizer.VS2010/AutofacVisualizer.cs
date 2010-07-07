@@ -13,7 +13,8 @@ namespace AutofacVisualizer.VS2010 {
     protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider) {
       System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
-      var objectSource = new ObjectSource(objectProvider);
+
+      var objectSource = new ObjectSource(new WireTalker(objectProvider));
       var viewModel = new VisualizerViewModel(objectSource);
       var child = new VisualizerControl(viewModel);
 

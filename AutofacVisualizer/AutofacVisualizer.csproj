@@ -71,6 +71,8 @@
     <Compile Include="Common\TypeExtensions.cs" />
     <Compile Include="Data\AutofacData.cs" />
     <Compile Include="Data\IObjectProvider.cs" />
+    <Compile Include="Data\ITalkToTheWire.cs" />
+    <Compile Include="Data\ObjectSource.cs" />
     <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
     <Compile Include="Data\Structures\ActivationData.cs" />
     <Compile Include="UI\Core\EventArgs.cs" />

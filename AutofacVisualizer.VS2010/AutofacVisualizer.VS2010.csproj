@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\..\lib\Autofac.dll</HintPath>
+      <HintPath>..\lib\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
@@ -42,10 +42,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -54,8 +52,8 @@
   <ItemGroup>
     <Compile Include="AutofacObjectSource.cs" />
     <Compile Include="AutofacVisualizer.cs" />
-    <Compile Include="ObjectSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WireTalker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutofacVisualizer\AutofacVisualizer.csproj">
