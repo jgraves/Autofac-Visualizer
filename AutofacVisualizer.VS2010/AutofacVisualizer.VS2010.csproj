@@ -51,9 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacObjectSource.cs" />
-    <Compile Include="AutofacVisualizer.cs" />
+    <Compile Include="VisualizerDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DebuggerProcessBridge.cs" />
+    <Compile Include="ObjectProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutofacVisualizer\AutofacVisualizer.csproj">

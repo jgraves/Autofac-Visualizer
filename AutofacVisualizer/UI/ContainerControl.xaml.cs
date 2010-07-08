@@ -8,5 +8,9 @@ namespace AutofacVisualizer.UI {
     public ContainerControl() {
       InitializeComponent();
     }
+
+		private void buildButton_Click(object sender, System.Windows.RoutedEventArgs e) {
+
+		}
   }
 }

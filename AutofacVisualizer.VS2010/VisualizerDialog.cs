@@ -4,16 +4,17 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.UI;
+using Microsoft.VisualStudio.DebuggerVisualizers;
 
-namespace AutofacVisualizer.VS2008 {
+namespace AutofacVisualizer.VS2010 {
 
-  public class AutofacDialogVisualizer : DialogDebuggerVisualizer {
+  public class VisualizerDialog : DialogDebuggerVisualizer {
 
     protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider) {
       System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
 
-      var objectSource = new ObjectSource(new DebuggerProcessBridge(objectProvider));
+      var objectSource = new ContainerSource(new ObjectProvider(objectProvider));
       var viewModel = new VisualizerViewModel(objectSource);
       var child = new VisualizerControl(viewModel);
 
@@ -24,7 +25,7 @@ namespace AutofacVisualizer.VS2008 {
     }
 
     public static void TestShowVisualizer(object objectToVisualize) {
-      var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(AutofacDialogVisualizer),
+      var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(VisualizerDialog),
                                                          typeof(AutofacObjectSource));
       visualizerHost.ShowVisualizer();
     }

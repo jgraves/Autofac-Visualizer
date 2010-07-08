@@ -12,7 +12,7 @@ namespace AutofacVisualizer.Tests {
   public class VisualizerViewModelTest {
     [Test]
     public void FiltersRegistrationsBasedOnFilterText() {
-      var objectSource = new Mock<IObjectSource>();
+      var objectSource = new Mock<IContainerSource>();
       var stringService = new ServiceDefinition { ServiceType = typeof(string), RegisteredTypes = new List<Type> { typeof(string) } };
       var objectService = new ServiceDefinition { ServiceType = typeof(object), RegisteredTypes = new List<Type> { typeof(object) } };
 
@@ -38,7 +38,7 @@ namespace AutofacVisualizer.Tests {
 
     [Test]
     public void DefaultsToContainerView() {
-      var objectSource = new Mock<IObjectSource>();
+      var objectSource = new Mock<IContainerSource>();
 
     	var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
 
@@ -49,7 +49,7 @@ namespace AutofacVisualizer.Tests {
     
     [Test]
     public void BuildCommandSwitchesToBuildMapView() {
-      var objectSource = new Mock<IObjectSource>();
+      var objectSource = new Mock<IContainerSource>();
       var stringService = new ServiceDefinition();
       objectSource.Setup(o => o.GetRegistrations()).Returns(
         new List<ServiceDefinition> {
@@ -66,7 +66,7 @@ namespace AutofacVisualizer.Tests {
     
     [Test]
     public void ReturnToContainerCommandSwitchesToContainerView() {
-      var objectSource = new Mock<IObjectSource>();
+      var objectSource = new Mock<IContainerSource>();
       var stringService = new ServiceDefinition();
       objectSource.Setup(o => o.GetRegistrations()).Returns(
         new List<ServiceDefinition> {

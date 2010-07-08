@@ -1,10 +1,11 @@
 using AutofacVisualizer.Data;
+using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace AutofacVisualizer.VS2008 {
-  public class DebuggerProcessBridge : IBridgeDebuggerProcess {
+  public class ObjectProvider : IObjectProvider {
     private readonly IVisualizerObjectProvider provider;
 
-    public DebuggerProcessBridge(IVisualizerObjectProvider provider) {
+    public ObjectProvider(IVisualizerObjectProvider provider) {
       this.provider = provider;
     }
 

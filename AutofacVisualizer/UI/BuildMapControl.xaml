@@ -15,9 +15,6 @@
         </Style>
     </UserControl.Resources>
 
-    <UserControl.DataContext>
-        <UI:DesignTimeVisualizerViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

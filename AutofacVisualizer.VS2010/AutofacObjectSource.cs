@@ -8,7 +8,7 @@ namespace AutofacVisualizer.VS2010 {
 
   public class AutofacObjectSource : VisualizerObjectSource {
 
-    private AutofacData source;
+    private ContainerRepository source;
 
     public override void TransferData(object target, Stream incomingData, Stream outgoingData) {
       var service = Deserialize(incomingData) as ServiceDefinition;
@@ -19,7 +19,7 @@ namespace AutofacVisualizer.VS2010 {
     }
 
     public override void GetData(object target, Stream outgoingData) {
-      source = new AutofacData((IContainer)target);
+      source = new ContainerRepository((IContainer)target);
       Serialize(outgoingData, source.GetServices());
     }
   }

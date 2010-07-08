@@ -69,10 +69,9 @@
   <ItemGroup>
     <Compile Include="Common\DictionaryExtensions.cs" />
     <Compile Include="Common\TypeExtensions.cs" />
-    <Compile Include="Data\AutofacData.cs" />
+    <Compile Include="Data\ContainerRepository.cs" />
     <Compile Include="Data\IObjectProvider.cs" />
-    <Compile Include="Data\IBridgeDebuggerProcess.cs" />
-    <Compile Include="Data\ObjectSource.cs" />
+    <Compile Include="Data\ContainerSource.cs" />
     <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
     <Compile Include="Data\Structures\ActivationData.cs" />
     <Compile Include="UI\Controls\InterfacesConverter.cs" />

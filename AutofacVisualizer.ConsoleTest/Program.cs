@@ -41,14 +41,14 @@ namespace AutofacVisualizer.ConsoleTest {
         //  Width = 600,
         //  Height = 600
         //}.ShowDialog();
-			AutofacVisualizer.VS2010.AutofacDialogVisualizer.TestShowVisualizer(container);
+			AutofacVisualizer.VS2010.VisualizerDialog.TestShowVisualizer(container);
 			}
 		}
 
-		private class TestObjectSource : IObjectSource {
+		private class TestContainerSource : IContainerSource {
 			private readonly IContainer container;
 
-			public TestObjectSource(IContainer container) {
+			public TestContainerSource(IContainer container) {
 				this.container = container;
 			}
 

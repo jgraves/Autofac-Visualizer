@@ -1,16 +1,16 @@
 <UserControl x:Class="AutofacVisualizer.UI.ContainerControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls" xmlns:Structures="clr-namespace:AutofacVisualizer.Data.Structures" mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls"
+        xmlns:Structures="clr-namespace:AutofacVisualizer.Data.Structures" mc:Ignorable="d" d:DesignHeight="300"
+        d:DesignWidth="300">
 
     <UserControl.Resources>
         <Controls:TypeDisplayConverter x:Key="typeConverter" />
-        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
 
         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-        <!-- Background of selected item when not focussed -->
         <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
 
         <Style TargetType="{x:Type ListBoxItem}">
@@ -45,17 +45,18 @@
         <DataTemplate DataType="{x:Type Structures:ServiceDefinition}">
             <Border BorderThickness="1" BorderBrush="Transparent" Name="selectedBorder" CornerRadius="6" Padding="10"
                     Margin="10" Background="Transparent">
-                <StackPanel Orientation="Vertical">
-                    <AdornerDecorator>
+                <StackPanel Orientation="Vertical" Name="layer">
+                    <AdornerDecorator >
 
                         <Border Name="itemBorder" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1"
                                 CornerRadius="6" Padding="5" Background="White">
                             <Controls:AttachedAdorner.AdornWith>
-                                <Button
-                                        Command="{Binding DataContext.BuildCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}"
-                                        Opacity="0" Name="buildButton"
-                                        Background="#AAFFFFFF" BorderBrush="#AA000000" Padding="3"
-                                        VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Build">
+                                <Button Opacity="0" Name="buildButton" Click="buildButton_Click"
+                                        CommandParameter="{Binding DataContext, ElementName=layer}" Background="#AAFFFFFF"
+                                        BorderBrush="#AA000000" Padding="3" VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right" Content="Build"
+                                        Command="{Binding DataContext.BuildCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}">
+                                    
                                     <!--<Path Fill="Black" VerticalAlignment="Center" HorizontalAlignment="Center"
                                             Data="M9.089,13.133c0.346,0.326,0.69,0.75,1.043,1.228c0.051-0.073,0.099-0.144,0.15-0.219c0.511-0.75,1.09-1.599,1.739-2.421c0.103-0.133,0.211-0.245,0.316-0.371c-0.487-0.572-1.024-1.12-1.672-1.592C9.663,9.02,8.354,8.506,6.899,8.517H0.593v3.604H6.9C7.777,12.138,8.333,12.422,9.089,13.133zM22.753,16.082v2.256c-0.922-0.002-2.45-0.002-2.883-0.002c-1.28-0.03-2.12-0.438-2.994-1.148c-0.378-0.311-0.74-0.7-1.097-1.133c-0.268,0.376-0.538,0.764-0.813,1.168c-0.334,0.488-0.678,0.99-1.037,1.484c-0.089,0.121-0.189,0.246-0.283,0.369c1.455,1.528,3.473,2.846,6.202,2.862h2.905v2.256l3.515-2.026l3.521-2.03l-3.521-2.028L22.753,16.082zM16.876,13.27c0.874-0.712,1.714-1.118,2.994-1.148c0.433,0,1.961,0,2.883-0.002v2.256l3.515-2.026l3.521-2.028l-3.521-2.029l-3.515-2.027V8.52h-2.905c-3.293,0.02-5.563,1.93-7.041,3.822c-1.506,1.912-2.598,3.929-3.718,4.982C8.332,18.033,7.777,18.32,6.9,18.336H0.593v3.604H6.9c1.455,0.011,2.764-0.502,3.766-1.242c1.012-0.735,1.772-1.651,2.454-2.573C14.461,16.267,15.574,14.34,16.876,13.27z" />-->
                                 </Button>
@@ -119,7 +120,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetName="buildButton" Storyboard.TargetProperty="Opacity"
-                                        To="1" Duration="0:0:.5"/>
+                                        To="1" Duration="0:0:.5" />
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -127,7 +128,7 @@
                         <BeginStoryboard>
                             <Storyboard>
                                 <DoubleAnimation Storyboard.TargetName="buildButton" Storyboard.TargetProperty="Opacity"
-                                        To="0" Duration="0:0:.5"/>
+                                        To="0" Duration="0:0:.5" />
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.ExitActions>
