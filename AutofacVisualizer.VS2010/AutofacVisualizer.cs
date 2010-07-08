@@ -14,7 +14,7 @@ namespace AutofacVisualizer.VS2010 {
       System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
 
-      var objectSource = new ObjectSource(new WireTalker(objectProvider));
+      var objectSource = new ObjectSource(new DebuggerProcessBridge(objectProvider));
       var viewModel = new VisualizerViewModel(objectSource);
       var child = new VisualizerControl(viewModel);
 

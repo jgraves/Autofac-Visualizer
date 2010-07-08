@@ -1,12 +1,10 @@
-using System;
 using AutofacVisualizer.Data;
-using Microsoft.VisualStudio.DebuggerVisualizers;
 
-namespace AutofacVisualizer.VS2010 {
-  public class WireTalker : ITalkToTheWire {
+namespace AutofacVisualizer.VS2008 {
+  public class DebuggerProcessBridge : IBridgeDebuggerProcess {
     private readonly IVisualizerObjectProvider provider;
 
-    public WireTalker(IVisualizerObjectProvider provider) {
+    public DebuggerProcessBridge(IVisualizerObjectProvider provider) {
       this.provider = provider;
     }
 

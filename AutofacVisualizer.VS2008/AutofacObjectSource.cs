@@ -1,13 +1,12 @@
 using System.IO;
+using Autofac;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Structures;
-using Microsoft.VisualStudio.DebuggerVisualizers;
-using IContainer = Autofac.IContainer;
 
 namespace AutofacVisualizer.VS2008 {
 
   public class AutofacObjectSource : VisualizerObjectSource {
-  
+
     private AutofacData source;
 
     public override void TransferData(object target, Stream incomingData, Stream outgoingData) {

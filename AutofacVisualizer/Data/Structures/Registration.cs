@@ -28,7 +28,7 @@ namespace AutofacVisualizer.Data.Structures {
 
 		void OnActivating(object sender, ActivatingEventArgs<object> e) {
 			if (Activating != null) {
-				Activating(this, new ActivatingObjectEventArgs(e.Instance.GetType(), e.Component.Activator.LimitType));
+				Activating(this, new ActivatingObjectEventArgs(e.Instance.GetType(), e.Component.Activator.LimitType, e.Component.Activator));
 			}
 		}
 

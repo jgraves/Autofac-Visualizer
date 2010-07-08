@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.UI;
-using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace AutofacVisualizer.VS2008 {
 
@@ -13,7 +12,8 @@ namespace AutofacVisualizer.VS2008 {
     protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider) {
       System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
-      var objectSource = new ObjectSource(objectProvider);
+
+      var objectSource = new ObjectSource(new DebuggerProcessBridge(objectProvider));
       var viewModel = new VisualizerViewModel(objectSource);
       var child = new VisualizerControl(viewModel);
 

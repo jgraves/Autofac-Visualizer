@@ -3,21 +3,20 @@ using AutofacVisualizer.Data.Structures;
 
 namespace AutofacVisualizer.Data {
 
-	public class ObjectSource : IObjectSource {
+    public class ObjectSource : IObjectSource {
 
-	  private readonly ITalkToTheWire wireTalker;
+        private readonly IBridgeDebuggerProcess wireBridge;
 
-	  public ObjectSource(ITalkToTheWire wireTalker)
-	  {
-	    this.wireTalker = wireTalker;
-	  }
+        public ObjectSource(IBridgeDebuggerProcess wireBridge) {
+            this.wireBridge = wireBridge;
+        }
 
-	  public IEnumerable<ServiceDefinition> GetRegistrations() {
-	    return wireTalker.GetObject<IEnumerable<ServiceDefinition>>();
-		}
+        public IEnumerable<ServiceDefinition> GetRegistrations() {
+            return wireBridge.GetObject<IEnumerable<ServiceDefinition>>();
+        }
 
-		public ActivationData GetBuildMap(ServiceDefinition item) {
-			return wireTalker.SendObject<ServiceDefinition, ActivationData>(item);
-		}
-	}
+        public ActivationData GetBuildMap(ServiceDefinition item) {
+            return wireBridge.SendObject<ServiceDefinition, ActivationData>(item);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows.Input;
 using AutofacVisualizer.Common;
 using AutofacVisualizer.Data.Structures;
@@ -9,20 +10,24 @@ using NGenerics.DataStructures.Mathematical;
 
 namespace AutofacVisualizer.UI {
 
-  public class DesignTimeVisualizerViewModel : IVisualizerViewModel {
+    public class DesignTimeVisualizerViewModel : IVisualizerViewModel {
 
-    public ICommand BuildCommand {
-      get { return null; }
-    }
+        public ICommand BuildCommand {
+            get { return null; }
+        }
 
-    public ActivationData BuildMap {
-      get {
-        return
-          new ActivationData {
-            Built = typeof(string),
-            Buildees = new List<ActivationData> {
+        public ActivationData BuildMap {
+            get {
+                return
+                  new ActivationData {
+                      Built = typeof(string),
+                      Buildees = new List<ActivationData> {
 						 new ActivationData{Built	= typeof(int)},
-						 new ActivationData{Built	= typeof(string)},
+						 new ActivationData{Built	= typeof(string),
+                             Buildees = new List<ActivationData> {
+                                                new ActivationData{Built = typeof(TextBox)},
+                                                new ActivationData{Built = typeof(ListBox)},
+                                            }},
 						 new ActivationData{Built	= typeof(long), Buildees=
 						 new List<ActivationData> {
 						 	new ActivationData{Built = typeof(DateTime)},
@@ -30,13 +35,13 @@ namespace AutofacVisualizer.UI {
 						 	new ActivationData{Built = typeof(IEnumerable<>)},
 						 }},
 						}
-          };
-      }
-    }
+                  };
+            }
+        }
 
-    public ICollectionView Services {
-      get {
-        return new List<ServiceDefinition> {
+        public ICollectionView Services {
+            get {
+                return new List<ServiceDefinition> {
 					new ServiceDefinition{ServiceType = typeof(IVector<>), 
 						RegisteredTypes = new List<Type>{typeof(IVector<string>), typeof(IVector<int>)}
 					},
@@ -59,21 +64,21 @@ namespace AutofacVisualizer.UI {
 						RegisteredTypes = new List<Type>{typeof(string)}
 					}
 				}
-        .ToView();
-      }
-    }
+                .ToView();
+            }
+        }
 
-    public string FilterText {
-      get { return "Filter"; }
-      set { }
-    }
+        public string FilterText {
+            get { return "Filter"; }
+            set { }
+        }
 
-    public View CurrentView {
-      get {
-        return View.Container;
-      }
-    }
+        public View CurrentView {
+            get {
+                return View.Container;
+            }
+        }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-  }
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
 }

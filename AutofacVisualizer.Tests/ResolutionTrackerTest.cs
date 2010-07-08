@@ -26,11 +26,11 @@ namespace AutofacVisualizer.Tests {
 			second.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(int)));
 			
 			second.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
-				typeof(int), typeof(long)
+				typeof(int), typeof(long), null
 			));
 
 			first.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
-				typeof(string), typeof(IEnumerable<char>)
+				typeof(string), typeof(IEnumerable<char>), null
 			));
 
 			var expected = new ActivationData { Built = typeof(string), 
@@ -62,16 +62,16 @@ namespace AutofacVisualizer.Tests {
 			
 			second.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(int)));
 			second.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
-				typeof(int), typeof(int)
+				typeof(int), typeof(int), null
 			));
 
 			third.Raise(r => r.Preparing += null, new PreparingObjectEventArgs(typeof(char)));
 			third.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
-				typeof(char), typeof(char)
+				typeof(char), typeof(char), null
 			));
 
 			first.Raise(r => r.Activating += null, new ActivatingObjectEventArgs(
-				typeof(string), typeof(IEnumerable<char>)
+				typeof(string), typeof(IEnumerable<char>), null
 			));
 
 			Assert.AreEqual(2, tracker.Activations.Buildees.Count());
