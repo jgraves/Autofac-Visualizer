@@ -51,8 +51,8 @@
                         <Border Name="itemBorder" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1"
                                 CornerRadius="6" Padding="5" Background="White">
                             <Controls:AttachedAdorner.AdornWith>
-                                <Button Opacity="0" Name="buildButton" Click="buildButton_Click"
-                                        CommandParameter="{Binding DataContext, ElementName=layer}" Background="#AAFFFFFF"
+                                <Button Opacity="0" Name="buildButton" 
+                                        CommandParameter="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=AdornerLayer}}" Background="#AAFFFFFF"
                                         BorderBrush="#AA000000" Padding="3" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right" Content="Build"
                                         Command="{Binding DataContext.BuildCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}">

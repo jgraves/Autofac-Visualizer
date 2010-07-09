@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows;
 using Autofac;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Structures;
+using AutofacVisualizer.UI;
 
 namespace AutofacVisualizer.ConsoleTest {
 
@@ -32,16 +34,16 @@ namespace AutofacVisualizer.ConsoleTest {
 			builder.RegisterType<MakesStrings>();
 			using (var container = builder.Build()) {
 
-        //var vm = new VisualizerViewModel(new TestObjectSource(container));
-        //new Window() {
-        //  Content = new VisualizerControl(vm) {
-        //    HorizontalAlignment = HorizontalAlignment.Stretch,
-        //    VerticalAlignment = VerticalAlignment.Stretch
-        //  },
-        //  Width = 600,
-        //  Height = 600
-        //}.ShowDialog();
-			AutofacVisualizer.VS2010.VisualizerDialog.TestShowVisualizer(container);
+				var vm = new VisualizerViewModel(new TestContainerSource(container));
+				new Window() {
+					Content = new VisualizerControl(vm) {
+						HorizontalAlignment = HorizontalAlignment.Stretch,
+						VerticalAlignment = VerticalAlignment.Stretch
+					},
+					Width = 600,
+					Height = 600
+				}.ShowDialog();
+			//AutofacVisualizer.VS2010.VisualizerDialog.TestShowVisualizer(container);
 			}
 		}
 
