@@ -116,7 +116,7 @@ namespace AutofacVisualizer.UI.Controls {
 		// Create an animation to decay from start to 0 over .5 seconds
 		private static DoubleAnimation MakeAnimation(double start) {
 			var animation = new DoubleAnimation(start, 0d, new Duration(TimeSpan.FromSeconds(.4))) {
-				AccelerationRatio = .2
+				DecelerationRatio = .2
 			};
 			return animation;
 		}

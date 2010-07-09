@@ -81,7 +81,7 @@
                     <Setter Property="ItemsPanel">
                         <Setter.Value>
                             <ItemsPanelTemplate>
-                                <StackPanel Style="{DynamicResource stackPanelStyle}" />
+                                <StackPanel Style="{StaticResource stackPanelStyle}" />
                             </ItemsPanelTemplate>
                         </Setter.Value>
                     </Setter>
@@ -144,7 +144,7 @@
             </TreeView.ItemTemplate>
             <TreeView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Style="{DynamicResource stackPanelStyle}"/>
+                    <StackPanel Style="{StaticResource stackPanelStyle}"/>
                 </ItemsPanelTemplate>
             </TreeView.ItemsPanel>
         </TreeView>

@@ -2,10 +2,10 @@ using AutofacVisualizer.Data;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace AutofacVisualizer.VS2008 {
-  public class ObjectProvider : IObjectProvider {
+  public class VisualizerObjectStream : IObjectStream {
     private readonly IVisualizerObjectProvider provider;
 
-    public ObjectProvider(IVisualizerObjectProvider provider) {
+    public VisualizerObjectStream(IVisualizerObjectProvider provider) {
       this.provider = provider;
     }
 

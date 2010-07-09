@@ -14,7 +14,7 @@ namespace AutofacVisualizer.VS2010 {
       System.Windows.Application.ResourceAssembly = Assembly.GetExecutingAssembly();
 
 
-      var objectSource = new ContainerSource(new ObjectProvider(objectProvider));
+      var objectSource = new ContainerInfoFromObjectStream(new VisualizerObjectStream(objectProvider));
       var viewModel = new VisualizerViewModel(objectSource);
       var child = new VisualizerControl(viewModel);
 
@@ -26,7 +26,7 @@ namespace AutofacVisualizer.VS2010 {
 
     public static void TestShowVisualizer(object objectToVisualize) {
       var visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(VisualizerDialog),
-                                                         typeof(AutofacObjectSource));
+                                                         typeof(VisualizerDataSource));
       visualizerHost.ShowVisualizer();
     }
   }

@@ -12,11 +12,11 @@ namespace AutofacVisualizer.Tests {
   public class VisualizerViewModelTest {
     [Test]
     public void FiltersRegistrationsBasedOnFilterText() {
-      var objectSource = new Mock<IContainerSource>();
+      var objectSource = new Mock<IContainerInfo>();
       var stringService = new ServiceDefinition { ServiceType = typeof(string), RegisteredTypes = new List<Type> { typeof(string) } };
       var objectService = new ServiceDefinition { ServiceType = typeof(object), RegisteredTypes = new List<Type> { typeof(object) } };
 
-      objectSource.Setup(o => o.GetRegistrations()).Returns(
+      objectSource.Setup(o => o.GetServices()).Returns(
         new List<ServiceDefinition> {
 					stringService,
 					objectService,
@@ -38,7 +38,7 @@ namespace AutofacVisualizer.Tests {
 
     [Test]
     public void DefaultsToContainerView() {
-      var objectSource = new Mock<IContainerSource>();
+      var objectSource = new Mock<IContainerInfo>();
 
     	var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
 
@@ -49,9 +49,9 @@ namespace AutofacVisualizer.Tests {
     
     [Test]
     public void BuildCommandSwitchesToBuildMapView() {
-      var objectSource = new Mock<IContainerSource>();
+      var objectSource = new Mock<IContainerInfo>();
       var stringService = new ServiceDefinition();
-      objectSource.Setup(o => o.GetRegistrations()).Returns(
+      objectSource.Setup(o => o.GetServices()).Returns(
         new List<ServiceDefinition> {
 					stringService,
 				}
@@ -66,9 +66,9 @@ namespace AutofacVisualizer.Tests {
     
     [Test]
     public void ReturnToContainerCommandSwitchesToContainerView() {
-      var objectSource = new Mock<IContainerSource>();
+      var objectSource = new Mock<IContainerInfo>();
       var stringService = new ServiceDefinition();
-      objectSource.Setup(o => o.GetRegistrations()).Returns(
+      objectSource.Setup(o => o.GetServices()).Returns(
         new List<ServiceDefinition> {
 					stringService,
 				}

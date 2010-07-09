@@ -34,42 +34,33 @@ namespace AutofacVisualizer.ConsoleTest {
 			builder.RegisterType<MakesStrings>();
 			using (var container = builder.Build()) {
 
-				var vm = new VisualizerViewModel(new TestContainerSource(container));
-				new Window() {
+				var vm = new VisualizerViewModel(new TestContainerInfo( container));
+				var window = new Window {
 					Content = new VisualizerControl(vm) {
 						HorizontalAlignment = HorizontalAlignment.Stretch,
 						VerticalAlignment = VerticalAlignment.Stretch
 					},
 					Width = 600,
 					Height = 600
-				}.ShowDialog();
+				};
+				window.ShowDialog();
 			//AutofacVisualizer.VS2010.VisualizerDialog.TestShowVisualizer(container);
 			}
 		}
 
-		private class TestContainerSource : IContainerSource {
-			private readonly IContainer container;
+		private class TestContainerInfo : IContainerInfo {
+			private readonly ContainerRepository containerRepository;
 
-			public TestContainerSource(IContainer container) {
-				this.container = container;
+			public TestContainerInfo(IContainer container) {
+				containerRepository = new ContainerRepository(container);
 			}
 
-			public IEnumerable<ServiceDefinition> GetRegistrations() {
-				return new ServiceDefinitions(container.ComponentRegistry.Registrations);
+			public IEnumerable<ServiceDefinition> GetServices() {
+				return containerRepository.GetServices();
 			}
 
 			public ActivationData GetBuildMap(ServiceDefinition item) {
-
-				var wrappedRegistrations = container.ComponentRegistry.Registrations.Select(r => new Registration(r)).ToList();
-
-				ActivationData data;
-				using (var tracker = new ResolutionTracker(wrappedRegistrations.Cast<IRegistration>())) {
-					object registration;
-					container.TryResolve(item.ServiceType, out registration);
-					data = tracker.Activations;
-				}
-
-				return data;
+				return containerRepository.GetBuildMap(item);
 			}
 		}
 	}

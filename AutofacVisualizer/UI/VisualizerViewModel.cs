@@ -16,13 +16,13 @@ namespace AutofacVisualizer.UI {
 
   public class VisualizerViewModel : BaseViewModel<VisualizerViewModel>, IVisualizerViewModel {
 
-    private readonly IContainerSource containerSource;
+    private readonly IContainerInfo container;
 
     private ActivationData buildMap;
     private ICollectionView services;
 
-    public VisualizerViewModel(IContainerSource containerSource) {
-      this.containerSource = containerSource;
+    public VisualizerViewModel(IContainerInfo container) {
+      this.container = container;
       BuildCommand = new RelayCommand(o => Build(o), o1 => Services.CurrentItem != null);
       ReturnToContainerCommand = new RelayCommand(o => CurrentView = View.Container, o1 => true);
       CurrentView = View.Container;
@@ -75,14 +75,14 @@ namespace AutofacVisualizer.UI {
     }
 
     private void RefreshTypes() {
-      Services = containerSource.GetRegistrations().ToView();
+      Services = container.GetServices().ToView();
     }
 
     private void Build(object obj) {
       var item = obj as ServiceDefinition;
       if (item == null) return;
 
-      BuildMap = containerSource.GetBuildMap(item);
+      BuildMap = container.GetBuildMap(item);
       CurrentView = View.BuildMap;
     }
   }

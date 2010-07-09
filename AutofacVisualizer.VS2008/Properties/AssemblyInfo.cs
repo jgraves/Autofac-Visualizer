@@ -42,5 +42,5 @@ using AutofacVisualizer.VS2008;
 
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly:
-	DebuggerVisualizer(typeof(VisualizerDialog), typeof(AutofacObjectSource), Target = typeof(Container))]
+	DebuggerVisualizer(typeof(VisualizerDialog), typeof(VisualizerDataSource), Target = typeof(Container))]
 [assembly: AssemblyFileVersion("1.0.0.0")]

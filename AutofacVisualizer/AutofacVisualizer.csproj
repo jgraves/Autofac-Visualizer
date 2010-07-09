@@ -70,8 +70,9 @@
     <Compile Include="Common\DictionaryExtensions.cs" />
     <Compile Include="Common\TypeExtensions.cs" />
     <Compile Include="Data\ContainerRepository.cs" />
-    <Compile Include="Data\IObjectProvider.cs" />
-    <Compile Include="Data\ContainerSource.cs" />
+    <Compile Include="Data\ContainerInfoFromObjectStream.cs" />
+    <Compile Include="Data\IContainerInfo.cs" />
+    <Compile Include="Data\IObjectStream.cs" />
     <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
     <Compile Include="Data\Structures\ActivationData.cs" />
     <Compile Include="UI\Controls\InterfacesConverter.cs" />

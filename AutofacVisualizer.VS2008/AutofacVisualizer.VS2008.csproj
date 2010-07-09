@@ -50,9 +50,9 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacObjectSource.cs" />
+    <Compile Include="VisualizerDataSource.cs" />
     <Compile Include="VisualizerDialog.cs" />
-    <Compile Include="ObjectProvider.cs" />
+    <Compile Include="VisualizerObjectStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

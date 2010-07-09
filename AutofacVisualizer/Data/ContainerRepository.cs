@@ -13,10 +13,10 @@ namespace AutofacVisualizer.Data {
 
 		public ContainerRepository(IContainer container) {
 			this.container = container;
-			this.registry = container.ComponentRegistry;
+			registry = container.ComponentRegistry;
 		}
 
-		public ActivationData GetActivationData(ServiceDefinition service) {
+		public ActivationData GetBuildMap(ServiceDefinition service) {
 
 			var wrappedRegistrations = from reg in registry.Registrations
 																 select (IRegistration)new Registration(reg);

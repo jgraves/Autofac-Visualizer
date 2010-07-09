@@ -6,7 +6,7 @@ using IContainer = Autofac.IContainer;
 
 namespace AutofacVisualizer.VS2010 {
 
-  public class AutofacObjectSource : VisualizerObjectSource {
+  public class VisualizerDataSource : VisualizerObjectSource {
 
     private ContainerRepository source;
 
@@ -14,7 +14,7 @@ namespace AutofacVisualizer.VS2010 {
       var service = Deserialize(incomingData) as ServiceDefinition;
       if (service == null) return;
 
-      var activations = source.GetActivationData(service);
+      var activations = source.GetBuildMap(service);
       Serialize(outgoingData, activations);
     }
 
