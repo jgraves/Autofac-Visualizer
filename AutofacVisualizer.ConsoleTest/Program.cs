@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Windows;
 using Autofac;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Structures;
 using AutofacVisualizer.UI;
+using NGenerics.DataStructures.Trees;
 
 namespace AutofacVisualizer.ConsoleTest {
 
@@ -17,21 +14,17 @@ namespace AutofacVisualizer.ConsoleTest {
 		[STAThread]
 		private static void Main() {
 			var builder = new ContainerBuilder();
+			builder.RegisterType<List<string>>().As<IEnumerable<string>>();
 
-			builder.RegisterType<List<string>>().As<IEnumerable<string>>().OnRegistered(args => args.ToString());
-			builder.RegisterType<List<object>>().As<IEnumerable<object>>();
-			builder.RegisterType<List<StringBuilder>>().As<IEnumerable<StringBuilder>>();
-			builder.RegisterType<Dictionary<string, object>>().As<IDictionary<string, object>>();
-			builder.RegisterType<HashSet<StringBuilder>>().As<IEnumerable<StringBuilder>>();
-			builder.RegisterType<IEnumerable<StringBuilder>>().As<IEnumerable<StringBuilder>>();
-
-			builder.Register(c => 1);
-			builder.Register(c => "string");
+			builder.RegisterGeneric(typeof (BinaryTree<>)).As(typeof (ITree<>));
+			builder.Register(c => new TreeWrapper(c.Resolve<ITree<int>>(), c.Resolve<IEnumerable<string>>()));
 
 			builder.RegisterType<UsesInt>().As<IGiveString>();
 			builder.RegisterType<UsesString>().As<IGiveString>();
-			builder.RegisterAssemblyTypes(Assembly.LoadFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\NGenerics.dll"));
-			builder.RegisterType<MakesStrings>();
+
+			builder.Register(c => "hello");
+			builder.Register(c => 7);
+
 			using (var container = builder.Build()) {
 
 				var vm = new VisualizerViewModel(new TestContainerInfo( container));
@@ -55,12 +48,12 @@ namespace AutofacVisualizer.ConsoleTest {
 				containerRepository = new ContainerRepository(container);
 			}
 
-			public IEnumerable<ServiceDefinition> GetServices() {
-				return containerRepository.GetServices();
+			public IEnumerable<ComponentRegistration> GetServices() {
+				return containerRepository.GetComponents();
 			}
 
-			public ActivationData GetBuildMap(ServiceDefinition item) {
-				return containerRepository.GetBuildMap(item);
+			public ResolutionTree GetBuildMap(Guid componentId) {
+				return containerRepository.GetBuildMap(componentId);
 			}
 		}
 	}

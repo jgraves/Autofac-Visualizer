@@ -37,7 +37,7 @@ namespace AutofacVisualizer.Tests {
 
 			var value = converter.Convert(type, null, null, CultureInfo.CurrentCulture);
 
-			Assert.AreEqual("Func<T1,T2,TResult>", value);
+			Assert.AreEqual("Func<T1, T2, TResult>", value);
 		}
 	}
 }

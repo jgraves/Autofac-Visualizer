@@ -6,14 +6,20 @@ using NGenerics.DataStructures.Trees;
 
 namespace AutofacVisualizer.Data {
 
+	[Serializable]
+	public struct ResolutionTree {
+		public Type Built { get; set; }
+		public IEnumerable<ResolutionTree> Buildees { get; set; }
+	}
+
 	public class ResolutionTracker : IDisposable {
 
 		private GeneralTree<Type> tree;
 		private GeneralTree<Type> currentNode;
 
-		private IEnumerable<IRegistration> Registrations { get; set; }
+		private IEnumerable<IComponentRegistrationListener> Registrations { get; set; }
 
-		public ResolutionTracker(IEnumerable<IRegistration> registrations) {
+		public ResolutionTracker(IEnumerable<IComponentRegistrationListener> registrations) {
 			Registrations = registrations;
 			foreach (var r in Registrations) {
 				r.Activating += OnActivating;
@@ -21,7 +27,7 @@ namespace AutofacVisualizer.Data {
 			}
 		}
 
-		
+
 		public void Dispose() {
 			foreach (var r in Registrations) {
 				r.Activating -= OnActivating;
@@ -32,15 +38,15 @@ namespace AutofacVisualizer.Data {
 			}
 		}
 
-		public ActivationData Activations {
+		public ResolutionTree Activations {
 			get {
-				return tree != null ? new ActivationData { Built = tree.Data, Buildees = FlattenTree(tree.ChildNodes).ToList() } : new ActivationData();
+				return tree != null ? new ResolutionTree { Built = tree.Data, Buildees = FlattenTree(tree.ChildNodes).ToList() } : new ResolutionTree();
 			}
 		}
 
-		public IEnumerable<ActivationData> FlattenTree(IEnumerable<GeneralTree<Type>> treeToFlatten) {
+		public IEnumerable<ResolutionTree> FlattenTree(IEnumerable<GeneralTree<Type>> treeToFlatten) {
 			foreach (var node in treeToFlatten) {
-				var data = new ActivationData { Built = node.Data };
+				var data = new ResolutionTree { Built = node.Data };
 
 				if (!node.IsLeafNode) {
 					data.Buildees = FlattenTree(node.ChildNodes).ToList();
@@ -58,7 +64,7 @@ namespace AutofacVisualizer.Data {
 			else {
 				var newNode = new GeneralTree<Type>(e.Type);
 				currentNode.Add(newNode);
-				currentNode = newNode;	
+				currentNode = newNode;
 			}
 		}
 

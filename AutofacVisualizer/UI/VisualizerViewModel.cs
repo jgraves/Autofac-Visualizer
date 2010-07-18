@@ -18,12 +18,12 @@ namespace AutofacVisualizer.UI {
 
     private readonly IContainerInfo container;
 
-    private ActivationData buildMap;
-    private ICollectionView services;
+    private ResolutionTree buildMap;
+    private ICollectionView components;
 
     public VisualizerViewModel(IContainerInfo container) {
       this.container = container;
-      BuildCommand = new RelayCommand(o => Build(o), o1 => Services.CurrentItem != null);
+      BuildCommand = new RelayCommand(Build, o1 => Components.CurrentItem != null);
       ReturnToContainerCommand = new RelayCommand(o => CurrentView = View.Container, o1 => true);
       CurrentView = View.Container;
       RefreshTypes();
@@ -32,7 +32,7 @@ namespace AutofacVisualizer.UI {
     public ICommand BuildCommand { get; private set; }
     public ICommand ReturnToContainerCommand { get; private set; }
 
-    public ActivationData BuildMap {
+    public ResolutionTree BuildMap {
       get { return buildMap; }
       private set {
         buildMap = value;
@@ -50,11 +50,11 @@ namespace AutofacVisualizer.UI {
       }
     }
 
-    public ICollectionView Services {
-      get { return services; }
+    public ICollectionView Components {
+      get { return components; }
       private set {
-        services = value;
-        NotifyPropertyChanged(vm => vm.Services);
+        components = value;
+        NotifyPropertyChanged(vm => vm.Components);
       }
     }
 
@@ -64,25 +64,25 @@ namespace AutofacVisualizer.UI {
       get { return filterText; }
       set {
         filterText = value;
-        Services.Filter =
+        Components.Filter =
           delegate(object o) {
             Func<Type, bool> contains = t => t.ToGenericTypeString().ToLower().Contains(value.ToLower());
-            var definition = ((ServiceDefinition)o);
-            return contains(definition.ServiceType) || definition.RegisteredTypes.Any(contains);
+            var definition = ((ComponentRegistration)o);
+            return contains(definition.Type) || definition.Services.Select(s => s.Type).Any(contains);
           };
         NotifyPropertyChanged(vm => vm.FilterText);
       }
     }
 
     private void RefreshTypes() {
-      Services = container.GetServices().ToView();
+      Components = container.GetServices().ToView();
     }
 
     private void Build(object obj) {
-      var item = obj as ServiceDefinition;
+      var item = obj as ComponentRegistration;
       if (item == null) return;
 
-      BuildMap = container.GetBuildMap(item);
+      BuildMap = container.GetBuildMap(item.Id);
       CurrentView = View.BuildMap;
     }
   }

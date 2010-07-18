@@ -52,7 +52,27 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.CoreEx, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.CoreEx.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Interactive, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Interactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Observable, Version=1.0.0.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Observable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Threading.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -70,20 +90,17 @@
     <Compile Include="Common\DictionaryExtensions.cs" />
     <Compile Include="Common\TypeExtensions.cs" />
     <Compile Include="Data\ContainerRepository.cs" />
-    <Compile Include="Data\ContainerInfoFromObjectStream.cs" />
-    <Compile Include="Data\IContainerInfo.cs" />
-    <Compile Include="Data\IObjectStream.cs" />
-    <Compile Include="Data\Structures\ActivatingObjectEventArgs.cs" />
-    <Compile Include="Data\Structures\ActivationData.cs" />
+    <Compile Include="Data\ContainerInfoStream.cs" />
+    <Compile Include="Data\Interfaces\IContainerInfo.cs" />
+    <Compile Include="Data\Interfaces\IObjectStream.cs" />
+    <Compile Include="Data\Structures\ServiceTypes.cs" />
     <Compile Include="UI\Controls\InterfacesConverter.cs" />
     <Compile Include="UI\Core\EventArgs.cs" />
-    <Compile Include="Data\Structures\PreparingObjectEventArgs.cs" />
-    <Compile Include="Data\Structures\Registration.cs" />
+    <Compile Include="Data\Structures\ComponentRegistrationListener.cs" />
     <Compile Include="UI\Core\BaseViewModel.cs" />
     <Compile Include="Common\EnumerableExtensions.cs" />
-    <Compile Include="Data\Structures\ServiceDefinitions.cs" />
     <Compile Include="Data\ResolutionTracker.cs" />
-    <Compile Include="Data\Structures\ServiceDefinition.cs" />
+    <Compile Include="Data\Structures\ComponentRegistration.cs" />
     <Compile Include="UI\Core\RelayCommand.cs" />
     <Compile Include="UI\Controls\AttachedAdorner.cs" />
     <Compile Include="UI\BuildMapControl.xaml.cs">

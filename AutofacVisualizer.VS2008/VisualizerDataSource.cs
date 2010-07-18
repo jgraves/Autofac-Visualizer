@@ -1,7 +1,7 @@
+using System;
 using System.IO;
 using Autofac;
 using AutofacVisualizer.Data;
-using AutofacVisualizer.Data.Structures;
 using Microsoft.VisualStudio.DebuggerVisualizers;
 
 namespace AutofacVisualizer.VS2008 {
@@ -11,16 +11,18 @@ namespace AutofacVisualizer.VS2008 {
     private ContainerRepository source;
 
     public override void TransferData(object target, Stream incomingData, Stream outgoingData) {
-      var service = Deserialize(incomingData) as ServiceDefinition;
-      if (service == null) return;
+			object obj = Deserialize(incomingData);
+			if (!(obj is Guid)) return;
 
-      var activations = source.GetBuildMap(service);
+
+			var componentId = (Guid)obj;
+			var activations = source.GetBuildMap(componentId);
       Serialize(outgoingData, activations);
     }
 
     public override void GetData(object target, Stream outgoingData) {
       source = new ContainerRepository((IContainer)target);
-      Serialize(outgoingData, source.GetServices());
+      Serialize(outgoingData, source.GetComponents());
     }
   }
 }

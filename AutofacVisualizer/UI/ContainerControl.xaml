@@ -42,7 +42,7 @@
             </Setter>
         </Style>
 
-        <DataTemplate DataType="{x:Type Structures:ServiceDefinition}">
+        <DataTemplate DataType="{x:Type Structures:ComponentRegistration}">
             <Border BorderThickness="1" BorderBrush="Transparent" Name="selectedBorder" CornerRadius="6" Padding="10"
                     Margin="10" Background="Transparent">
                 <StackPanel Orientation="Vertical">
@@ -71,11 +71,11 @@
                             </Border.Effect>
 
                             <TextBlock FontSize="16" Style="{StaticResource trimmedText}" HorizontalAlignment="Center"
-                                    Text="{Binding ServiceType, Converter={StaticResource typeConverter}}" />
+                                    Text="{Binding Type, Converter={StaticResource typeConverter}}" />
                         </Border>
                     </AdornerDecorator>
 
-                    <ItemsControl ItemsSource="{Binding RegisteredTypes}" Controls:SmartSizer.IsDetail="True"
+                    <ItemsControl ItemsSource="{Binding Services}" Controls:SmartSizer.IsDetail="True"
                             HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
 
                         <ItemsControl.ItemsPanel>
@@ -90,7 +90,7 @@
                                         CornerRadius="4" Padding="6" Margin="6" Background="White">
                                     <TextBlock FontSize="14" Style="{StaticResource trimmedText}"
                                             HorizontalAlignment="Center"
-                                            Text="{Binding Converter={StaticResource typeConverter}}" />
+                                            Text="{Binding Type, Converter={StaticResource typeConverter}}" />
                                 </Border>
 
                             </DataTemplate>
@@ -175,7 +175,7 @@
                     VerticalAlignment="Center" />
         </Grid>
 
-        <ListBox Grid.Row="2" Name="servicesListBox" ItemsSource="{Binding Services}"
+        <ListBox Grid.Row="2" Name="servicesListBox" ItemsSource="{Binding Components}"
                 IsSynchronizedWithCurrentItem="True" Style="{DynamicResource serviceListBox}">
         </ListBox>
 

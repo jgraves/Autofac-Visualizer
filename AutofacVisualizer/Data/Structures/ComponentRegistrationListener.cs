@@ -3,18 +3,38 @@ using Autofac.Core;
 
 namespace AutofacVisualizer.Data.Structures {
 
-	public interface IRegistration : IDisposable {
+	public class PreparingObjectEventArgs : EventArgs {
+		public Type Type { get; private set; }
+
+		public PreparingObjectEventArgs(Type type) {
+			Type = type;
+		}
+	}
+
+	public class ActivatingObjectEventArgs : EventArgs {
+		public Type Service { get; private set; }
+		public Type Concrete { get; private set; }
+		public IInstanceActivator Activator { get; private set; }
+
+		public ActivatingObjectEventArgs(Type service, Type concrete, IInstanceActivator activator) {
+			Service = service;
+			Concrete = concrete;
+			Activator = activator;
+		}
+	}
+
+	public interface IComponentRegistrationListener : IDisposable {
 		event EventHandler<ActivatingObjectEventArgs> Activating;
 		event EventHandler<PreparingObjectEventArgs> Preparing;
 	}
 
-	public class Registration : IRegistration {
+	public class ComponentRegistrationListener : IComponentRegistrationListener {
 		private readonly IComponentRegistration registration;
 
 		public event EventHandler<ActivatingObjectEventArgs> Activating;
 		public event EventHandler<PreparingObjectEventArgs> Preparing;
 
-		public Registration(IComponentRegistration registration) {
+		public ComponentRegistrationListener(IComponentRegistration registration) {
 			this.registration = registration;
 			registration.Activating += OnActivating;
 			registration.Preparing += OnPreparing;

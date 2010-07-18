@@ -12,10 +12,10 @@ namespace AutofacVisualizer.Tests {
 
 		[Test]
 		public void BuildsRegistrationsInRightOrder() {
-			var first = new Mock<IRegistration>();
-			var second = new Mock<IRegistration>();
+			var first = new Mock<IComponentRegistrationListener>();
+			var second = new Mock<IComponentRegistrationListener>();
 
-			var registrations = new List<IRegistration> {
+			var registrations = new List<IComponentRegistrationListener> {
 				first.Object,
 				second.Object,
 			};
@@ -33,9 +33,9 @@ namespace AutofacVisualizer.Tests {
 				typeof(string), typeof(IEnumerable<char>), null
 			));
 
-			var expected = new ActivationData { Built = typeof(string), 
-				Buildees = new List<ActivationData> {
-					new ActivationData{Built = typeof(int)},
+			var expected = new ResolutionTree { Built = typeof(string), 
+				Buildees = new List<ResolutionTree> {
+					new ResolutionTree{Built = typeof(int)},
 				} 
 			};
 			var results = tracker.Activations;
@@ -46,11 +46,11 @@ namespace AutofacVisualizer.Tests {
 		
 		[Test]
 		public void TracksSubTypes() {
-			var first = new Mock<IRegistration>();
-			var second = new Mock<IRegistration>();
-			var third = new Mock<IRegistration>();
+			var first = new Mock<IComponentRegistrationListener>();
+			var second = new Mock<IComponentRegistrationListener>();
+			var third = new Mock<IComponentRegistrationListener>();
 
-			var registrations = new List<IRegistration> {
+			var registrations = new List<IComponentRegistrationListener> {
 				first.Object,
 				second.Object,
 				third.Object,

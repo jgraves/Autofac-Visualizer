@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Structures;
@@ -6,21 +7,22 @@ using IContainer = Autofac.IContainer;
 
 namespace AutofacVisualizer.VS2010 {
 
-  public class VisualizerDataSource : VisualizerObjectSource {
+	public class VisualizerDataSource : VisualizerObjectSource {
 
-    private ContainerRepository source;
+		private ContainerRepository source;
 
-    public override void TransferData(object target, Stream incomingData, Stream outgoingData) {
-      var service = Deserialize(incomingData) as ServiceDefinition;
-      if (service == null) return;
+		public override void TransferData(object target, Stream incomingData, Stream outgoingData) {
+			object obj = Deserialize(incomingData);
+			if (!(obj is Guid)) return;
 
-      var activations = source.GetBuildMap(service);
-      Serialize(outgoingData, activations);
-    }
+			var componentId = (Guid)obj;
+			var activations = source.GetBuildMap(componentId);
+			Serialize(outgoingData, activations);
+		}
 
-    public override void GetData(object target, Stream outgoingData) {
-      source = new ContainerRepository((IContainer)target);
-      Serialize(outgoingData, source.GetServices());
-    }
-  }
+		public override void GetData(object target, Stream outgoingData) {
+			source = new ContainerRepository((IContainer)target);
+			Serialize(outgoingData, source.GetComponents());
+		}
+	}
 }

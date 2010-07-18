@@ -13,11 +13,11 @@ namespace AutofacVisualizer.Tests {
     [Test]
     public void FiltersRegistrationsBasedOnFilterText() {
       var objectSource = new Mock<IContainerInfo>();
-      var stringService = new ServiceDefinition { ServiceType = typeof(string), RegisteredTypes = new List<Type> { typeof(string) } };
-      var objectService = new ServiceDefinition { ServiceType = typeof(object), RegisteredTypes = new List<Type> { typeof(object) } };
+      var stringService = new ComponentRegistration { Type = typeof(string), Services = new List<TypedService> { new TypedService{Type = typeof(string) }} };
+      var objectService = new ComponentRegistration { Type = typeof(object), Services = new List<TypedService> { new TypedService{Type = typeof(object) } }};
 
       objectSource.Setup(o => o.GetServices()).Returns(
-        new List<ServiceDefinition> {
+        new List<ComponentRegistration> {
 					stringService,
 					objectService,
 				}
@@ -27,13 +27,13 @@ namespace AutofacVisualizer.Tests {
 
       visualizerViewModel.FilterText = "s";
 
-      Assert.IsTrue(visualizerViewModel.Services.Filter(stringService));
-      Assert.IsFalse(visualizerViewModel.Services.Filter(objectService));
+      Assert.IsTrue(visualizerViewModel.Components.Filter(stringService));
+      Assert.IsFalse(visualizerViewModel.Components.Filter(objectService));
 
       visualizerViewModel.FilterText = "o";
 
-      Assert.IsFalse(visualizerViewModel.Services.Filter(stringService));
-      Assert.IsTrue(visualizerViewModel.Services.Filter(objectService));
+      Assert.IsFalse(visualizerViewModel.Components.Filter(stringService));
+      Assert.IsTrue(visualizerViewModel.Components.Filter(objectService));
     }
 
     [Test]
@@ -50,16 +50,16 @@ namespace AutofacVisualizer.Tests {
     [Test]
     public void BuildCommandSwitchesToBuildMapView() {
       var objectSource = new Mock<IContainerInfo>();
-      var stringService = new ServiceDefinition();
+      var stringService = new ComponentRegistration();
       objectSource.Setup(o => o.GetServices()).Returns(
-        new List<ServiceDefinition> {
+        new List<ComponentRegistration> {
 					stringService,
 				}
       );
 
       var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
-      visualizerViewModel.Services.MoveCurrentToFirst();
-      visualizerViewModel.BuildCommand.Execute(null);
+      visualizerViewModel.Components.MoveCurrentToFirst();
+      visualizerViewModel.BuildCommand.Execute(stringService);
 
       Assert.AreEqual(View.BuildMap, visualizerViewModel.CurrentView);
     }
@@ -67,15 +67,15 @@ namespace AutofacVisualizer.Tests {
     [Test]
     public void ReturnToContainerCommandSwitchesToContainerView() {
       var objectSource = new Mock<IContainerInfo>();
-      var stringService = new ServiceDefinition();
+      var stringService = new ComponentRegistration();
       objectSource.Setup(o => o.GetServices()).Returns(
-        new List<ServiceDefinition> {
+        new List<ComponentRegistration> {
 					stringService,
 				}
       );
 
       var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
-      visualizerViewModel.Services.MoveCurrentToFirst();
+      visualizerViewModel.Components.MoveCurrentToFirst();
       visualizerViewModel.BuildCommand.Execute(null);
 
 
