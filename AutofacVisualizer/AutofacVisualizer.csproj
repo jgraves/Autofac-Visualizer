@@ -36,6 +36,9 @@
     <Reference Include="Autofac">
       <HintPath>..\lib\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="AutofacContrib.Profiling">
+      <HintPath>..\lib\AutofacContrib.Profiling.dll</HintPath>
+    </Reference>
     <Reference Include="NGenerics">
       <HintPath>..\lib\NGenerics.dll</HintPath>
     </Reference>
@@ -93,13 +96,13 @@
     <Compile Include="Data\ContainerInfoStream.cs" />
     <Compile Include="Data\Interfaces\IContainerInfo.cs" />
     <Compile Include="Data\Interfaces\IObjectStream.cs" />
+    <Compile Include="Data\ResolutionTracker.cs" />
     <Compile Include="Data\Structures\ServiceTypes.cs" />
     <Compile Include="UI\Controls\InterfacesConverter.cs" />
     <Compile Include="UI\Core\EventArgs.cs" />
     <Compile Include="Data\Structures\ComponentRegistrationListener.cs" />
     <Compile Include="UI\Core\BaseViewModel.cs" />
     <Compile Include="Common\EnumerableExtensions.cs" />
-    <Compile Include="Data\ResolutionTracker.cs" />
     <Compile Include="Data\Structures\ComponentRegistration.cs" />
     <Compile Include="UI\Core\RelayCommand.cs" />
     <Compile Include="UI\Controls\AttachedAdorner.cs" />

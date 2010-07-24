@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using Autofac;
+using AutofacContrib.Profiling;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Structures;
 using AutofacVisualizer.UI;
@@ -14,6 +15,9 @@ namespace AutofacVisualizer.ConsoleTest {
 		[STAThread]
 		private static void Main() {
 			var builder = new ContainerBuilder();
+
+            builder.RegisterModule<ProfilingModule>();
+
 			builder.RegisterType<List<string>>().As<IEnumerable<string>>();
 
 			builder.RegisterGeneric(typeof (BinaryTree<>)).As(typeof (ITree<>));

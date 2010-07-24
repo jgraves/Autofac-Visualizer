@@ -4,6 +4,7 @@ using System.Linq;
 using Autofac;
 using Autofac.Core;
 using Autofac.Core.Registration;
+using AutofacContrib.Profiling;
 using AutofacVisualizer.Data.Structures;
 using ComponentRegistration = AutofacVisualizer.Data.Structures.ComponentRegistration;
 using NamedService = AutofacVisualizer.Data.Structures.NamedService;
@@ -19,34 +20,45 @@ namespace AutofacVisualizer.Data {
 
 		private readonly IContainer container;
 		private readonly IComponentRegistry registry;
+	    private readonly IContainerProfile _profile;
 
 		public ContainerRepository(IContainer container) {
 			this.container = container;
 			registry = container.ComponentRegistry;
+		    _profile = container.Resolve<IContainerProfile>();
 		}
 
 		public ResolutionTree GetBuildMap(Guid componentId) {
+			var registration = registry.Registrations.Single(r => r.Id == componentId);
 
-			var wrappedRegistrations = from reg in registry.Registrations
-																 select (IComponentRegistrationListener)new ComponentRegistrationListener(reg);
+			if (!_profile.Components.Any(c => c.ComponentRegistration.Id == componentId))
+                container.Resolve(registration, Enumerable.Empty<Parameter>());
 
-			using (var tracker = new ResolutionTracker(wrappedRegistrations.ToList())) {
-				var registration = registry.Registrations.First(r => r.Id == componentId);
-				container.Resolve(registration, Enumerable.Empty<Parameter>());
-				return tracker.Activations;
-			}
+            var componentInfo = _profile.GetComponent(componentId);
+
+            return new ResolutionTree
+            {
+                Built = registration.Activator.LimitType,
+                Buildees = componentInfo.Dependencies.Select(GetBuildMap)
+            };
 		}
 
 		public List<ComponentRegistration> GetComponents() {
 
-			var components = from reg in registry.Registrations
-											 select new ComponentRegistration {
-												 Id = reg.Id,
-												 Type = reg.Activator.LimitType,
-												 Services =
-													 (from IServiceWithType service in reg.Services
-														select GetService(service)).ToList()
-											 };
+			var components =
+                from reg in registry.Registrations
+                let limitType = reg.Activator.LimitType
+                where
+                    limitType.Assembly != typeof(Container).Assembly &&
+                    limitType.Assembly != typeof(ProfilingModule).Assembly
+                select new ComponentRegistration
+                {
+				    Id = reg.Id,
+				    Type = limitType,
+				    Services =
+					    (from IServiceWithType service in reg.Services
+					    select GetService(service)).ToList()
+			    };
 
 			return components.ToList();
 		}
