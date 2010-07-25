@@ -23,7 +23,7 @@ namespace AutofacVisualizer.ConsoleTest {
 			builder.RegisterGeneric(typeof (BinaryTree<>)).As(typeof (ITree<>));
 			builder.Register(c => new TreeWrapper(c.Resolve<ITree<int>>(), c.Resolve<IEnumerable<string>>()));
 
-			builder.RegisterType<UsesInt>().As<IGiveString>();
+			builder.RegisterType<UsesInt>().As<IGiveString>().Named<object>("My Name");
 			builder.RegisterType<UsesString>().As<IGiveString>();
 
 			builder.Register(c => "hello");

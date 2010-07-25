@@ -97,6 +97,8 @@
     <Compile Include="Data\Interfaces\IContainerInfo.cs" />
     <Compile Include="Data\Interfaces\IObjectStream.cs" />
     <Compile Include="Data\ResolutionTracker.cs" />
+    <Compile Include="Data\Structures\ActivatorType.cs" />
+    <Compile Include="Data\Structures\InstanceScope.cs" />
     <Compile Include="Data\Structures\ServiceTypes.cs" />
     <Compile Include="UI\Controls\InterfacesConverter.cs" />
     <Compile Include="UI\Core\EventArgs.cs" />

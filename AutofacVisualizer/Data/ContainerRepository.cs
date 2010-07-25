@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using Autofac.Core;
-using Autofac.Core.Registration;
+using Autofac.Core.Activators.Delegate;
+using Autofac.Core.Activators.ProvidedInstance;
+using Autofac.Core.Activators.Reflection;
+using Autofac.Core.Lifetime;
 using AutofacContrib.Profiling;
 using AutofacVisualizer.Data.Structures;
 using ComponentRegistration = AutofacVisualizer.Data.Structures.ComponentRegistration;
@@ -11,7 +14,6 @@ using NamedService = AutofacVisualizer.Data.Structures.NamedService;
 using TypedService = AutofacVisualizer.Data.Structures.TypedService;
 using AutofacNamedService = Autofac.Core.NamedService;
 using AutofacKeyedService = Autofac.Core.KeyedService;
-using AutofacTypedService = Autofac.Core.TypedService;
 using KeyedService = AutofacVisualizer.Data.Structures.KeyedService;
 
 namespace AutofacVisualizer.Data {
@@ -29,24 +31,26 @@ namespace AutofacVisualizer.Data {
 		}
 
 		public ResolutionTree GetBuildMap(Guid componentId) {
-			var registration = registry.Registrations.Single(r => r.Id == componentId);
-
-			if (!_profile.Components.Any(c => c.ComponentRegistration.Id == componentId))
-                container.Resolve(registration, Enumerable.Empty<Parameter>());
-
             var componentInfo = _profile.GetComponent(componentId);
+
+            IEnumerable<Guid> dependencies;
+            if (!componentInfo.TryGetDependencies(out dependencies))
+                container.Resolve(componentInfo.ComponentRegistration, Enumerable.Empty<Parameter>());
+
+		    componentInfo.TryGetDependencies(out dependencies);
 
             return new ResolutionTree
             {
-                Built = registration.Activator.LimitType,
-                Buildees = componentInfo.Dependencies.Select(GetBuildMap)
+                Built = componentInfo.ComponentRegistration.Activator.LimitType,
+                Buildees = dependencies.Select(GetBuildMap)
             };
 		}
 
 		public List<ComponentRegistration> GetComponents() {
 
 			var components =
-                from reg in registry.Registrations
+                from info in _profile.Components
+                let reg = info.ComponentRegistration
                 let limitType = reg.Activator.LimitType
                 where
                     limitType.Assembly != typeof(Container).Assembly &&
@@ -55,15 +59,61 @@ namespace AutofacVisualizer.Data {
                 {
 				    Id = reg.Id,
 				    Type = limitType,
-				    Services =
-					    (from IServiceWithType service in reg.Services
-					    select GetService(service)).ToList()
+				    Services = reg.Services.OfType<IServiceWithType>().Select(GetService).ToList(),
+                    InstanceScope = GetInstanceScope(reg),
+                    ActivationCount = info.ActivationCount,
+                    ActivatorType = GetActivatorType(reg),
+                    ActivatorDescription = GetActivatorDescription(reg)
 			    };
 
 			return components.ToList();
 		}
 
-		private TypedService GetService(IServiceWithType service) {
+	    static string GetActivatorDescription(IComponentRegistration reg)
+	    {
+	        var activator = GetActivator(reg);
+	        return activator.ToString();
+	    }
+
+	    static IInstanceActivator GetActivator(IComponentRegistration reg)
+	    {
+	        var profiling = reg.Activator as ProfilingActivator;
+            return profiling != null ? profiling.InnerActivator : reg.Activator;
+	    }
+
+	    static ActivatorType GetActivatorType(IComponentRegistration reg)
+	    {
+	        var activator = GetActivator(reg);
+            if (activator is ReflectionActivator)
+                return ActivatorType.Reflection;
+            if (activator is ProvidedInstanceActivator)
+                return ActivatorType.ProvidedInstance;
+            if (activator is DelegateActivator)
+                return ActivatorType.Delegate;
+            return ActivatorType.Unknown;
+	    }
+
+	    static InstanceScope GetInstanceScope(IComponentRegistration reg)
+	    {
+            if (reg.Sharing == InstanceSharing.Shared)
+            {
+                if (reg.Lifetime is RootScopeLifetime)
+                    return InstanceScope.SingleInstance;
+                if (reg.Lifetime is MatchingScopeLifetime)
+                    return InstanceScope.PerMatchingLifetimeScope;
+                if (reg.Lifetime is CurrentScopeLifetime)
+                    return InstanceScope.PerLifetimeScope;
+            }
+            else if (reg.Sharing == InstanceSharing.None)
+            {
+                if (reg.Lifetime is CurrentScopeLifetime)
+                    return InstanceScope.PerDependency;
+            }
+
+	        return InstanceScope.Unknown;
+	    }
+
+	    private static TypedService GetService(IServiceWithType service) {
 			if (service is AutofacNamedService) {
 				return new NamedService {
 					Name = ((AutofacNamedService)service).ServiceName,
