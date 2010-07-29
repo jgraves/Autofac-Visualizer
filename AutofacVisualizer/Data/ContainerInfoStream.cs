@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AutofacVisualizer.Data.Interfaces;
 using AutofacVisualizer.Data.Structures;
 
 namespace AutofacVisualizer.Data {

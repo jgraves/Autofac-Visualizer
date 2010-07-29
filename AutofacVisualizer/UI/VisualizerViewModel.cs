@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using AutofacVisualizer.Common;
 using AutofacVisualizer.Data;
+using AutofacVisualizer.Data.Interfaces;
 using AutofacVisualizer.Data.Structures;
 using AutofacVisualizer.UI.Core;
 

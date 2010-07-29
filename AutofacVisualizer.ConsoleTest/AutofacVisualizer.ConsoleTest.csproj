@@ -39,8 +39,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="AutofacContrib.Profiling, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Working\Open Source\Autofac-Visualizer\Autofac-Visualizer\lib\AutofacContrib.Profiling.dll</HintPath>
+    <Reference Include="AutofacContrib.Profiling">
+      <HintPath>..\lib\AutofacContrib.Profiling.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NGenerics, Version=1.4.1.0, Culture=neutral, PublicKeyToken=e4b41be133ea7faf, processorArchitecture=MSIL">

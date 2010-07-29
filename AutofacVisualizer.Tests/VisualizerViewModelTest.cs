@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AutofacVisualizer.Data;
+using AutofacVisualizer.Data.Interfaces;
 using AutofacVisualizer.Data.Structures;
 using AutofacVisualizer.UI;
 using Moq;
