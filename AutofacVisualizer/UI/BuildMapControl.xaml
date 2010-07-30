@@ -1,152 +1,132 @@
-<UserControl x:Class="AutofacVisualizer.UI.BuildMapControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Builder="clr-namespace:Autofac.Builder;assembly=Autofac" xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls" xmlns:UI="clr-namespace:AutofacVisualizer.UI" mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" FontFamily="Calibri" FontSize="12">
+<UserControl x:Class="AutofacVisualizer.UI.BuildMapControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Builder="clr-namespace:Autofac.Builder;assembly=Autofac" xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls" xmlns:UI="clr-namespace:AutofacVisualizer.UI" xmlns:Data="clr-namespace:AutofacVisualizer.Data" xmlns:Structures="clr-namespace:AutofacVisualizer.Data.Structures" mc:Ignorable="d" d:DesignHeight="300" FontFamily="Calibri" FontSize="12">
 
-    <UserControl.Resources>
-        
-        <Controls:TypeDisplayConverter x:Key="typeConverter"/>
-        <Controls:InterfacesConverter x:Key="typeInfoConverter" />
-        
-        <Style TargetType="TextBlock" x:Key="labelStyle">
-            <Setter Property="FontWeight" Value="Bold"/>
-        </Style>
-    </UserControl.Resources>
+  <UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0">
-            <Button HorizontalAlignment="Left" Margin="5" Content="&lt;-- Return to Container" Command="{Binding ReturnToContainerCommand}"/>
-            <TextBlock TextWrapping="WrapWithOverflow" Margin="5">
+    <Controls:TypeDisplayConverter x:Key="typeConverter" />
+    <Controls:InterfacesConverter x:Key="typeInfoConverter" />
+
+    <Style TargetType="TextBlock" x:Key="labelStyle">
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+  </UserControl.Resources>
+
+  <!--<UserControl.DataContext>
+    <UI:DesignTimeVisualizerViewModel />
+  </UserControl.DataContext>-->
+  
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <DockPanel Grid.Row="0">
+      <Button HorizontalAlignment="Left" Margin="5" Content="&lt;-- Return to Container" Command="{Binding ReturnToContainerCommand}" />
+      <TextBlock TextWrapping="WrapWithOverflow" Margin="5">
                 This is a tree diagram showing the concrete types used while building the requested service.
-            </TextBlock>
-        </DockPanel>
-        <TextBlock Margin="5" Grid.Row="1" Text="{Binding BuildMap.Built.Name, StringFormat=Build map for \'\{0\}\':}"/>
-        <TreeView Margin="5" Grid.Row="2" ItemsSource="{Binding BuildMap.Buildees}">
+      </TextBlock>
+    </DockPanel>
 
-            <TreeView.Resources>
+    <TreeView Margin="5" Grid.Row="1" ItemsSource="{Binding BuildMap}" HorizontalAlignment="Center" BorderBrush="{x:Null}" Background="{x:Null}">
 
-                <Style TargetType="{x:Type StackPanel}" x:Key="stackPanelStyle">
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                    <Setter Property="Margin" Value="4,6"/>
-                    <Setter Property="Orientation" Value="Horizontal"/>
-                </Style>
+      <TreeView.ItemContainerStyle>
 
-                <Style TargetType="TreeViewItem">
+        <Style TargetType="TreeViewItem">
 
-                    <Setter Property="Template">
+          <Setter Property="Template">
 
-                        <Setter.Value>
+            <Setter.Value>
 
-                            <ControlTemplate TargetType="TreeViewItem">
+              <ControlTemplate TargetType="TreeViewItem">
 
-                                <Border Margin="4" BorderBrush="Black" BorderThickness="1" CornerRadius="4">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="3" ShadowDepth="2" Color="DarkGray" />
-                                    </Border.Effect>
-                                    <Border.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="0" Color="#FFFFFF"/>
-                                            <GradientStop Offset="1" Color="#BBBBCC"/>
-                                            <GradientStop Offset="1" Color="#AAAABB"/>
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                    <Grid>
+                <Grid>
 
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
 
-                                        <ContentPresenter 
-                                        ContentSource="Header"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center" />
+                  <Border Margin="4" BorderBrush="Black" BorderThickness="1" CornerRadius="4">
+                    <Border.Background>
+                      <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0" Color="#FFFFFF" />
+                        <GradientStop Offset="1" Color="#BBBBCC" />
+                        <GradientStop Offset="1" Color="#AAAABB" />
+                      </LinearGradientBrush>
+                    </Border.Background>
 
-                                        <ItemsPresenter Grid.Row="1"/>
+                    <Border.Effect>
+                      <DropShadowEffect BlurRadius="3" ShadowDepth="2" Color="DarkGray" />
+                    </Border.Effect>
+                    <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                  </Border>
 
-                                    </Grid>
-                                </Border>
+                  <ItemsPresenter Grid.Row="1" />
+
+                </Grid>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+
+          <Setter Property="ItemsPanel">
+            <Setter.Value>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="4,6" />
+              </ItemsPanelTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </TreeView.ItemContainerStyle>
+
+      <TreeView.ItemTemplate>
+
+        <HierarchicalDataTemplate ItemsSource="{Binding Buildees}" DataType="{x:Type Data:ResolutionTree}">
+
+          <TextBlock Margin="4" ToolTipService.InitialShowDelay="0" Text="{Binding Built.Type, Converter={StaticResource typeConverter}}">
+                        <TextBlock.ToolTip>
+                          <ToolTip>
+                          <ToolTip.Template>
+                            
+            <ControlTemplate>
+                          <Border DataContext="{Binding Built}" BorderBrush="Black" BorderThickness="1" CornerRadius="6">
+                              <Border.Background>
+                                  <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#FFFFFF" />
+                                    <GradientStop Offset="1" Color="#DDDDEE" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="4" Color="DarkGray" />
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="0" Text="Full Name: " />
+                              <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Type.FullName}" />
+                                <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="1" Text="Namespace: " />
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Type.Namespace}" />
+                                <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="2" Text="Assembly: " />
+                                <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Type.Assembly}" />                      
+                                <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="3" Text="Interfaces: " />
+                                <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Type,Converter={StaticResource typeInfoConverter}}" />
+                            </Grid>
+                          </Border>
                             </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-
-                    <Setter Property="ItemsPanel">
-                        <Setter.Value>
-                            <ItemsPanelTemplate>
-                                <StackPanel Style="{StaticResource stackPanelStyle}" />
-                            </ItemsPanelTemplate>
-                        </Setter.Value>
-                    </Setter>
-
-                </Style>
-
-            </TreeView.Resources>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate  ItemsSource="{Binding Buildees}" DataType="{x:Type Builder:RegistrationData}" >
-                    <TextBlock Margin="4" ToolTipService.InitialShowDelay="0"
-                               Text="{Binding Built, Converter={StaticResource typeConverter}}">
-                        <TextBlock.Resources>
-                            <Style TargetType="ToolTip">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ToolTip">
-                                          <Border BorderBrush="Black" BorderThickness="1" CornerRadius="6">
-                                                  <Border.Background>
-                                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                        <GradientStop Offset="0" Color="#FFFFFF"/>
-                                                        <GradientStop Offset="1" Color="#DDDDEE"/>
-                                                    </LinearGradientBrush>
-                                                </Border.Background>
-                                              <Border.Effect>
-                                                  <DropShadowEffect ShadowDepth="4" Color="DarkGray"/>
-                                              </Border.Effect>
-                                            <ContentPresenter Content="{TemplateBinding Content}" />
-                                          </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBlock.Resources>
-                    	<TextBlock.ToolTip>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-                                
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                
-                                        <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="0" Text="Full Name: " />
-                                    	<TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Built.FullName}" />
-                                        <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="1" Text="Namespace: " />
-                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Built.Namespace}" />
-                                        <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="2" Text="Assembly: "/>
-                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Built.Assembly}" />                      
-                                        <TextBlock Style="{DynamicResource labelStyle}" Grid.Column="0" Grid.Row="3" Text="Interfaces: "/>
-                                        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Built, Converter={StaticResource typeInfoConverter}}" />
-                                    </Grid>
+                            </ToolTip.Template>
+                            </ToolTip>
                     	</TextBlock.ToolTip>
-                    </TextBlock>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-            <TreeView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Style="{StaticResource stackPanelStyle}"/>
-                </ItemsPanelTemplate>
-            </TreeView.ItemsPanel>
-        </TreeView>
-    </Grid>
+          </TextBlock>
+        </HierarchicalDataTemplate>
+      </TreeView.ItemTemplate>
+    </TreeView>
+  </Grid>
 </UserControl>

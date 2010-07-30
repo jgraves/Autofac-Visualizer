@@ -39,7 +39,7 @@ namespace AutofacVisualizer.Data {
       componentInfo.TryGetDependencies(out dependencies);
 
       return new ResolutionTree {
-        Built = componentInfo.ComponentRegistration.Activator.LimitType,
+        Built = BuildComponentRegistration(componentInfo.ComponentRegistration, componentInfo.ComponentRegistration.Activator.LimitType),
         Buildees = dependencies.Select(GetBuildMap)
       };
     }
@@ -47,23 +47,42 @@ namespace AutofacVisualizer.Data {
     public List<ComponentRegistration> GetComponents() {
 
       var components =
-                from info in profile.Components
-                let reg = info.ComponentRegistration
-                let limitType = reg.Activator.LimitType
-                where
-                    limitType.Assembly != typeof(Container).Assembly &&
-                    limitType.Assembly != typeof(ProfilingModule).Assembly
-                select new ComponentRegistration {
-                  Id = reg.Id,
-                  Type = limitType,
-                  Services = reg.Services.OfType<IServiceWithType>().Select(GetService).ToList(),
-                  InstanceScope = GetInstanceScope(reg),
-                  ActivationCount = info.ActivationCount,
-                  ActivatorType = GetActivatorType(reg),
-                  ActivatorDescription = GetActivatorDescription(reg)
-                };
+
+        from info in profile.Components
+        let reg = info.ComponentRegistration
+        let limitType = reg.Activator.LimitType
+
+        where
+
+            limitType.Assembly != typeof(Container).Assembly &&
+            limitType.Assembly != typeof(ProfilingModule).Assembly
+
+        select BuildComponentRegistration(reg, limitType, info);
 
       return components.ToList();
+    }
+
+    private ComponentRegistration BuildComponentRegistration(IComponentRegistration reg, Type limitType) {
+      return new ComponentRegistration {
+        Id = reg.Id,
+        Type = limitType,
+        Services = reg.Services.OfType<IServiceWithType>().Select(GetService).ToList(),
+        InstanceScope = GetInstanceScope(reg),
+        ActivatorType = GetActivatorType(reg),
+        ActivatorDescription = GetActivatorDescription(reg)
+      };
+    }
+    
+    private ComponentRegistration BuildComponentRegistration(IComponentRegistration reg, Type limitType, ComponentRegistrationInfo info) {
+      return new ComponentRegistration {
+        Id = reg.Id,
+        Type = limitType,
+        Services = reg.Services.OfType<IServiceWithType>().Select(GetService).ToList(),
+        InstanceScope = GetInstanceScope(reg),
+        ActivationCount = info.ActivationCount,
+        ActivatorType = GetActivatorType(reg),
+        ActivatorDescription = GetActivatorDescription(reg)
+      };
     }
 
     static string GetActivatorDescription(IComponentRegistration reg) {
@@ -124,7 +143,7 @@ namespace AutofacVisualizer.Data {
 
   [Serializable]
   public class ResolutionTree {
-    public Type Built { get; set; }
+    public ComponentRegistration Built { get; set; }
     public IEnumerable<ResolutionTree> Buildees { get; set; }
   }
 }

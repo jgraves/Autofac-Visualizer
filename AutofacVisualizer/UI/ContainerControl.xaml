@@ -1,154 +1,131 @@
-<UserControl x:Class="AutofacVisualizer.UI.ContainerControl"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls"
-        xmlns:Structures="clr-namespace:AutofacVisualizer.Data.Structures" mc:Ignorable="d" d:DesignHeight="300"
-        d:DesignWidth="300">
+<UserControl x:Class="AutofacVisualizer.UI.ContainerControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Controls="clr-namespace:AutofacVisualizer.UI.Controls" xmlns:Structures="clr-namespace:AutofacVisualizer.Data.Structures" xmlns:UI="clr-namespace:AutofacVisualizer.UI" mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
 
-    <UserControl.Resources>
-        <Controls:TypeDisplayConverter x:Key="typeConverter" />
+  <UserControl.Resources>
+    <Controls:TypeDisplayConverter x:Key="typeConverter" />
 
-        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
 
-        <Style TargetType="{x:Type ListBoxItem}">
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Foreground" Value="Black" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+    <Style TargetType="{x:Type ListBoxItem}">
+      <Style.Triggers>
+        <Trigger Property="IsSelected" Value="True">
+          <Setter Property="Foreground" Value="Black" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
 
-        <Style TargetType="{x:Type TextBlock}" x:Key="trimmedText">
-            <Setter Property="MaxWidth" Value="300" />
-            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
-        </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="trimmedText">
+      <Setter Property="MaxWidth" Value="300" />
+      <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+      <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+    </Style>
 
-        <Style x:Key="serviceListBox" TargetType="{x:Type ListBox}">
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="ItemsPanel">
-                <Setter.Value>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Controls:SmartSizer.SizeSmartly="True"
-                                Controls:PanelLayoutAnimator.IsAnimationEnabled="True" />
-                    </ItemsPanelTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    <Style x:Key="serviceListBox" TargetType="{x:Type ListBox}">
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="Background" Value="{x:Null}" />
+      <Setter Property="BorderBrush" Value="{x:Null}" />
+      <Setter Property="ItemsPanel">
+        <Setter.Value>
+          <ItemsPanelTemplate>
+            <UniformGrid Controls:SmartSizer.SizeSmartly="True" Controls:PanelLayoutAnimator.IsAnimationEnabled="True" />
+          </ItemsPanelTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
 
-        <DataTemplate DataType="{x:Type Structures:ComponentRegistration}">
-            <Border BorderThickness="1" BorderBrush="Transparent" Name="selectedBorder" CornerRadius="6" Padding="10"
-                    Margin="10" Background="Transparent">
-                <StackPanel Orientation="Vertical">
-                    <AdornerDecorator HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <DataTemplate DataType="{x:Type Structures:ComponentRegistration}">
+      <Border BorderThickness="1" BorderBrush="Transparent" Name="selectedBorder" CornerRadius="6" Padding="10" Margin="10" Background="Transparent">
+        <StackPanel Orientation="Vertical">
+          <AdornerDecorator HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                        <Border Name="itemBorder" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1"
-                                CornerRadius="6" Padding="5" Background="White">
-                            <Controls:AttachedAdorner.AdornWith>
-                                <ToolBarTray VerticalAlignment="Top" HorizontalAlignment="Center" Name="hoverToolbar"
-                                        Opacity="0" Margin="0,-40,0,0" IsLocked="True">
-                                    <ToolBar IsOverflowOpen="False" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
-                                        <Button Name="buildButton"
-                                                CommandParameter="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=AdornerLayer}}"
-                                                Background="#AAFFFFFF" BorderBrush="#AA000000" Padding="3"
-                                                Content="Build"
-                                                Command="{Binding DataContext.BuildCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}">
+            <Border Name="itemBorder" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" CornerRadius="6" Padding="5" Background="White">
+              <Controls:AttachedAdorner.AdornWith>
+                <ToolBarTray VerticalAlignment="Top" HorizontalAlignment="Center" Name="hoverToolbar" Opacity="0" Margin="0,-40,0,0" IsLocked="True">
+                  <ToolBar IsOverflowOpen="False" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
+                    <Button Name="buildButton" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=AdornerLayer}}" Background="#AAFFFFFF" BorderBrush="#AA000000" Padding="3" Content="Build" Command="{Binding DataContext.BuildCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=UserControl}}">
 
-                                            <!--<Path Fill="Black" VerticalAlignment="Center" HorizontalAlignment="Center"
+                      <!--<Path Fill="Black" VerticalAlignment="Center" HorizontalAlignment="Center"
                                             Data="M9.089,13.133c0.346,0.326,0.69,0.75,1.043,1.228c0.051-0.073,0.099-0.144,0.15-0.219c0.511-0.75,1.09-1.599,1.739-2.421c0.103-0.133,0.211-0.245,0.316-0.371c-0.487-0.572-1.024-1.12-1.672-1.592C9.663,9.02,8.354,8.506,6.899,8.517H0.593v3.604H6.9C7.777,12.138,8.333,12.422,9.089,13.133zM22.753,16.082v2.256c-0.922-0.002-2.45-0.002-2.883-0.002c-1.28-0.03-2.12-0.438-2.994-1.148c-0.378-0.311-0.74-0.7-1.097-1.133c-0.268,0.376-0.538,0.764-0.813,1.168c-0.334,0.488-0.678,0.99-1.037,1.484c-0.089,0.121-0.189,0.246-0.283,0.369c1.455,1.528,3.473,2.846,6.202,2.862h2.905v2.256l3.515-2.026l3.521-2.03l-3.521-2.028L22.753,16.082zM16.876,13.27c0.874-0.712,1.714-1.118,2.994-1.148c0.433,0,1.961,0,2.883-0.002v2.256l3.515-2.026l3.521-2.028l-3.521-2.029l-3.515-2.027V8.52h-2.905c-3.293,0.02-5.563,1.93-7.041,3.822c-1.506,1.912-2.598,3.929-3.718,4.982C8.332,18.033,7.777,18.32,6.9,18.336H0.593v3.604H6.9c1.455,0.011,2.764-0.502,3.766-1.242c1.012-0.735,1.772-1.651,2.454-2.573C14.461,16.267,15.574,14.34,16.876,13.27z" />-->
-                                        </Button>
-                                    </ToolBar>
-                                </ToolBarTray>
-                            </Controls:AttachedAdorner.AdornWith>
-                            <Border.Effect>
-                                <DropShadowEffect Color="LightGray" ShadowDepth="2" BlurRadius="5" />
-                            </Border.Effect>
+                    </Button>
+                  </ToolBar>
+                </ToolBarTray>
+              </Controls:AttachedAdorner.AdornWith>
+              <Border.Effect>
+                <DropShadowEffect Color="LightGray" ShadowDepth="2" BlurRadius="5" />
+              </Border.Effect>
 
-                            <TextBlock FontSize="16" Style="{StaticResource trimmedText}" HorizontalAlignment="Center"
-                                    Text="{Binding Type, Converter={StaticResource typeConverter}}" />
-                        </Border>
-                    </AdornerDecorator>
-
-                    <ItemsControl ItemsSource="{Binding Services}" Controls:SmartSizer.IsDetail="True"
-                            HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
-
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1"
-                                        CornerRadius="4" Padding="6" Margin="6" Background="White">
-                                    <TextBlock FontSize="14" Style="{StaticResource trimmedText}"
-                                            HorizontalAlignment="Center"
-                                            Text="{Binding Type, Converter={StaticResource typeConverter}}" />
-                                </Border>
-
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
-                </StackPanel>
+              <TextBlock FontSize="16" Style="{StaticResource trimmedText}" HorizontalAlignment="Center" Text="{Binding Type, Converter={StaticResource typeConverter}}" />
             </Border>
-            <DataTemplate.Triggers>
-                <DataTrigger
-                        Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"
-                        Value="True">
-                    <DataTrigger.Setters>
-                        <Setter TargetName="itemBorder" Property="Effect">
-                            <Setter.Value>
-                                <DropShadowEffect ShadowDepth="5" Color="DarkGray" BlurRadius="5" />
-                            </Setter.Value>
-                        </Setter>
-                        <Setter TargetName="selectedBorder" Property="BorderBrush" Value="Black" />
-                    </DataTrigger.Setters>
-                </DataTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetName="hoverToolbar" Storyboard.TargetProperty="Opacity"
-                                        To="1" Duration="0:0:.3" AccelerationRatio=".5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetName="hoverToolbar" Storyboard.TargetProperty="Opacity"
-                                        To="0" Duration="0:0:.3" AccelerationRatio=".5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </DataTemplate.Triggers>
+          </AdornerDecorator>
 
-        </DataTemplate>
-    </UserControl.Resources>
-    <Grid>
+          <ItemsControl ItemsSource="{Binding Services}" Controls:SmartSizer.IsDetail="True" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
 
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" FontWeight="Bold" Text="Registered Services:" />
-            <TextBlock Margin="20,5,5,5" Grid.Row="1" TextWrapping="Wrap">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" CornerRadius="4" Padding="6" Margin="6" Background="White">
+                  <TextBlock FontSize="14" Style="{StaticResource trimmedText}" HorizontalAlignment="Center" Text="{Binding Type, Converter={StaticResource typeConverter}}" />
+                </Border>
+
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+        </StackPanel>
+      </Border>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True">
+          <DataTrigger.Setters>
+            <Setter TargetName="itemBorder" Property="Effect">
+              <Setter.Value>
+                <DropShadowEffect ShadowDepth="5" Color="DarkGray" BlurRadius="5" />
+              </Setter.Value>
+            </Setter>
+            <Setter TargetName="selectedBorder" Property="BorderBrush" Value="Black" />
+          </DataTrigger.Setters>
+        </DataTrigger>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Trigger.EnterActions>
+            <BeginStoryboard>
+              <Storyboard>
+                <DoubleAnimation Storyboard.TargetName="hoverToolbar" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.3" AccelerationRatio=".5" />
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.EnterActions>
+          <Trigger.ExitActions>
+            <BeginStoryboard>
+              <Storyboard>
+                <DoubleAnimation Storyboard.TargetName="hoverToolbar" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.3" AccelerationRatio=".5" />
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.ExitActions>
+        </Trigger>
+      </DataTemplate.Triggers>
+
+    </DataTemplate>
+  </UserControl.Resources>
+  <Grid>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Row="0" FontWeight="Bold" Text="Registered Services:" />
+      <TextBlock Margin="20,5,5,5" Grid.Row="1" TextWrapping="Wrap">
             		The Autofac container has the following 
                     <Hyperlink>services<Controls:PopupHelp.HelpTip>
                             Services in the Autofac world represent a well-defined contract 
@@ -163,21 +140,19 @@
                    </Controls:PopupHelp.HelpTip>
                     </Hyperlink> registered.
 
-            </TextBlock>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Filter: " Margin="5" VerticalAlignment="Center" />
-            <TextBox Grid.Column="1" Margin="5" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
-                    VerticalAlignment="Center" />
-        </Grid>
-
-        <ListBox Grid.Row="2" Name="servicesListBox" ItemsSource="{Binding Components}"
-                IsSynchronizedWithCurrentItem="True" Style="{DynamicResource serviceListBox}">
-        </ListBox>
-
+      </TextBlock>
     </Grid>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <TextBlock Grid.Column="0" Text="Filter: " Margin="5" VerticalAlignment="Center" />
+      <TextBox Grid.Column="1" Margin="5" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+    </Grid>
+
+    <ListBox Grid.Row="2" Name="servicesListBox" ItemsSource="{Binding Components}" IsSynchronizedWithCurrentItem="True" Style="{DynamicResource serviceListBox}">
+    </ListBox>
+
+  </Grid>
 </UserControl>

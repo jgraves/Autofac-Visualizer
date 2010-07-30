@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
@@ -33,12 +34,8 @@ namespace AutofacVisualizer.UI {
     public ICommand BuildCommand { get; private set; }
     public ICommand ReturnToContainerCommand { get; private set; }
 
-    public ResolutionTree BuildMap {
-      get { return buildMap; }
-      private set {
-        buildMap = value;
-        NotifyPropertyChanged(vm => vm.BuildMap);
-      }
+    public IEnumerable<ResolutionTree> BuildMap {
+      get { yield return buildMap; }
     }
 
     private View currentView;
@@ -83,7 +80,7 @@ namespace AutofacVisualizer.UI {
       var item = obj as ComponentRegistration;
       if (item == null) return;
 
-      BuildMap = container.GetBuildMap(item.Id);
+      buildMap = container.GetBuildMap(item.Id);
       CurrentView = View.BuildMap;
     }
   }

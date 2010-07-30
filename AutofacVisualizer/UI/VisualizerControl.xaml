@@ -11,29 +11,29 @@
     </UserControl.Background>
 
     <UserControl.Resources>
-        <UI:BuildMapControl x:Key="buildMapControl"/>
-        <UI:ContainerControl x:Key="containerControl"/>
+        <UI:BuildMapControl x:Key="buildMapControl" />
+        <UI:ContainerControl x:Key="containerControl" />
     </UserControl.Resources>
 
     <Controls:TransitionElement Name="transitionControl">
 
     	<Controls:TransitionElement.Transition>
-            <Transitions:FadeTransition />
-        </Controls:TransitionElement.Transition>
+          <Transitions:FadeTransition />
+      </Controls:TransitionElement.Transition>
 
-        <Controls:TransitionElement.Style>
-            <Style TargetType="{x:Type Controls:TransitionElement}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding CurrentView}" Value="{x:Static UI:View.Container}">
-                        <Setter Property="Content" Value="{DynamicResource containerControl}"/>
-                    </DataTrigger>
+      <Controls:TransitionElement.Style>
+          <Style TargetType="{x:Type Controls:TransitionElement}">
+              <Style.Triggers>
+                  <DataTrigger Binding="{Binding CurrentView}" Value="{x:Static UI:View.Container}">
+                      <Setter Property="Content" Value="{DynamicResource containerControl}"/>
+                  </DataTrigger>
 
-                    <DataTrigger Binding="{Binding CurrentView}" Value="{x:Static UI:View.BuildMap}">
-                        <Setter Property="Content" Value="{DynamicResource buildMapControl}"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Controls:TransitionElement.Style>
+                  <DataTrigger Binding="{Binding CurrentView}" Value="{x:Static UI:View.BuildMap}">
+                      <Setter Property="Content" Value="{DynamicResource buildMapControl}"/>
+                  </DataTrigger>
+              </Style.Triggers>
+          </Style>
+      </Controls:TransitionElement.Style>
     </Controls:TransitionElement>
 
 </UserControl>

@@ -11,38 +11,40 @@ using NGenerics.DataStructures.Mathematical;
 
 namespace AutofacVisualizer.UI {
 
-	public class DesignTimeVisualizerViewModel : IVisualizerViewModel {
+  public class DesignTimeVisualizerViewModel : IVisualizerViewModel {
 
-		public ICommand BuildCommand {
-			get { return null; }
-		}
+    public ICommand BuildCommand {
+      get { return null; }
+    }
 
-		public ResolutionTree BuildMap {
-			get {
-				return
-					new ResolutionTree {
-						Built = typeof(string),
-						Buildees = new List<ResolutionTree> {
-						 new ResolutionTree{Built	= typeof(int)},
-						 new ResolutionTree{Built	= typeof(string),
-                             Buildees = new List<ResolutionTree> {
-                                                new ResolutionTree{Built = typeof(TextBox)},
-                                                new ResolutionTree{Built = typeof(ListBox)},
-                                            }},
-						 new ResolutionTree{Built	= typeof(long), Buildees=
-						 new List<ResolutionTree> {
-						 	new ResolutionTree{Built = typeof(DateTime)},
-						 	new ResolutionTree{Built = typeof(ReflectionControl)},
-						 	new ResolutionTree{Built = typeof(IEnumerable<>)},
-						 }},
-						}
-					};
-			}
-		}
+    public IEnumerable<ResolutionTree> BuildMap {
+      get {
+        yield return
+          new ResolutionTree {
+            Built =
+              new ComponentRegistration {
+                Type = typeof(string)
+              },
+            Buildees = new List<ResolutionTree> {
+              new ResolutionTree {
+                Built = new ComponentRegistration {Type = typeof (IVector<>)},
+                Buildees = new List<ResolutionTree> {
+                  new ResolutionTree {
+                    Built = new ComponentRegistration{Type = typeof(IEnumerable<string>)}
+                  }
+                }
+              },
+              new ResolutionTree {
+                Built = new ComponentRegistration {Type = typeof (int)}
+              }
+            }
+          };
+      }
+    }
 
-		public ICollectionView Components {
-			get {
-				return new List<ComponentRegistration> {
+    public ICollectionView Components {
+      get {
+        return new List<ComponentRegistration> {
 					new ComponentRegistration{Type = typeof(IVector<>), 
 						Services = new List<TypedService> {
 							new TypedService{Type = typeof(IVector<string>)},
@@ -71,21 +73,21 @@ namespace AutofacVisualizer.UI {
 						Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
 					}
 				}
-				.ToView();
-			}
-		}
+        .ToView();
+      }
+    }
 
-		public string FilterText {
-			get { return "Filter"; }
-			set { }
-		}
+    public string FilterText {
+      get { return "Filter"; }
+      set { }
+    }
 
-		public View CurrentView {
-			get {
-				return View.Container;
-			}
-		}
+    public View CurrentView {
+      get {
+        return View.Container;
+      }
+    }
 
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
+    public event PropertyChangedEventHandler PropertyChanged;
+  }
 }
