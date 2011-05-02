@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using Autofac;
-using AutofacContrib.Profiling;
 using AutofacVisualizer.Data;
 using AutofacVisualizer.Data.Interfaces;
 using AutofacVisualizer.Data.Structures;
 using AutofacVisualizer.UI;
 using NGenerics.DataStructures.Trees;
+using Profiler = AutofacVisualizer.ProfilingModule.ProfilingModule;
 
 namespace AutofacVisualizer.ConsoleTest {
 
@@ -17,7 +17,7 @@ namespace AutofacVisualizer.ConsoleTest {
     private static void Main() {
       var builder = new ContainerBuilder();
 
-      builder.RegisterModule<ProfilingModule>();
+      builder.RegisterModule<Profiler>();
 
       builder.RegisterType<List<string>>().As<IEnumerable<string>>();
 

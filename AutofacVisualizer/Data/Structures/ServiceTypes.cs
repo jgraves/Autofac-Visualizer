@@ -10,9 +10,4 @@ namespace AutofacVisualizer.Data.Structures {
 	public class KeyedService : TypedService {
 		public object Key { get; set; }
 	}
-
-	[Serializable]
-	public class NamedService : TypedService {
-		public string Name { get; set; }
-	}
 }

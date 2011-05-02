@@ -35,12 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=2.2.4.900, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=2.4.5.724, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="AutofacContrib.Profiling">
-      <HintPath>..\lib\AutofacContrib.Profiling.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.DebuggerVisualizers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NGenerics, Version=1.4.1.0, Culture=neutral, PublicKeyToken=e4b41be133ea7faf, processorArchitecture=MSIL">
@@ -68,9 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\AutofacVisualizer.ProfilingModule\AutofacVisualizer.ProfilingModule.csproj">
+      <Project>{5F661183-4C16-4A12-9806-FCD27135C1A6}</Project>
+      <Name>AutofacVisualizer.ProfilingModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AutofacVisualizer.VS2010\AutofacVisualizer.VS2010.csproj">
       <Project>{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}</Project>
       <Name>AutofacVisualizer.VS2010</Name>

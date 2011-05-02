@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutofacVisualizer</RootNamespace>
     <AssemblyName>AutofacVisualizer</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -33,11 +33,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="Autofac">
+    <Reference Include="Autofac, Version=2.4.5.724, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="AutofacContrib.Profiling">
-      <HintPath>..\lib\AutofacContrib.Profiling.dll</HintPath>
     </Reference>
     <Reference Include="NGenerics">
       <HintPath>..\lib\NGenerics.dll</HintPath>
@@ -55,30 +53,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.CoreEx, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.CoreEx.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Interactive, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Interactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Observable, Version=1.0.0.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Observable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading, Version=1.0.2563.102, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\System.Threading.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="Transitionals">
       <HintPath>..\lib\Transitionals.dll</HintPath>
@@ -96,6 +75,7 @@
     <Compile Include="Data\ContainerInfoStream.cs" />
     <Compile Include="Data\Interfaces\IContainerInfo.cs" />
     <Compile Include="Data\Interfaces\IObjectStream.cs" />
+    <Compile Include="Data\ResolutionTree.cs" />
     <Compile Include="Data\Structures\ActivatorType.cs" />
     <Compile Include="Data\Structures\InstanceScope.cs" />
     <Compile Include="Data\Structures\ServiceTypes.cs" />
@@ -149,6 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutofacVisualizer.ProfilingModule\AutofacVisualizer.ProfilingModule.csproj">
+      <Project>{5F661183-4C16-4A12-9806-FCD27135C1A6}</Project>
+      <Name>AutofacVisualizer.ProfilingModule</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
