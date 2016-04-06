@@ -42,7 +42,6 @@ namespace AutofacVisualizer.ConsoleTest {
           Height = 600
         };
         window.ShowDialog();
-        //AutofacVisualizer.VS2010.VisualizerDialog.TestShowVisualizer(container);
       }
     }
 
