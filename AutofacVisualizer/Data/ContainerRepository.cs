@@ -44,14 +44,14 @@ namespace AutofacVisualizer.Data
 			return new ResolutionTree
 			{
 				Built = BuildComponentRegistration(componentInfo.ComponentRegistration, componentInfo.ComponentRegistration.Activator.LimitType),
-				Buildees = dependencies.Select(GetBuildMap)
+				Buildees = dependencies.Select(GetBuildMap).ToArray()
 			};
 		}
 
 		public List<ComponentRegistration> GetComponents()
 		{
 
-			var components =
+            var components =
 
 			  from info in _profile.Components
 			  let reg = info.ComponentRegistration
