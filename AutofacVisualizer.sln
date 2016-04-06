@@ -1,20 +1,19 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacVisualizer.ConsoleTest", "AutofacVisualizer.ConsoleTest\AutofacVisualizer.ConsoleTest.csproj", "{6BE2EB03-1EAD-4441-9640-0BD304279655}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacVisualizer.Tests", "AutofacVisualizer.Tests\AutofacVisualizer.Tests.csproj", "{D6A7A253-0E95-4350-94CB-D128239E6E42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacVisualizer", "AutofacVisualizer\AutofacVisualizer.csproj", "{7744A188-A7EC-4DB6-AFAD-B6CE4E3CA762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacVisualizer.VS2010", "AutofacVisualizer.VS2010\AutofacVisualizer.VS2010.csproj", "{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacVisualizer.ProfilingModule", "AutofacVisualizer.ProfilingModule\AutofacVisualizer.ProfilingModule.csproj", "{5F661183-4C16-4A12-9806-FCD27135C1A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacVisualizer.VS2015", "AutofacVisualizer.VS2015\AutofacVisualizer.VS2015.csproj", "{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}"
+EndProject
 Global
-	GlobalSection(SharpSetup) = preSolution
-		Version = 1.2
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -54,16 +53,6 @@ Global
 		{7744A188-A7EC-4DB6-AFAD-B6CE4E3CA762}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{7744A188-A7EC-4DB6-AFAD-B6CE4E3CA762}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{7744A188-A7EC-4DB6-AFAD-B6CE4E3CA762}.Release|x86.ActiveCfg = Release|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{4C9D939E-DC5F-4D82-B81C-B39E65D1DA32}.Release|x86.ActiveCfg = Release|Any CPU
 		{5F661183-4C16-4A12-9806-FCD27135C1A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F661183-4C16-4A12-9806-FCD27135C1A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F661183-4C16-4A12-9806-FCD27135C1A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -74,8 +63,23 @@ Global
 		{5F661183-4C16-4A12-9806-FCD27135C1A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5F661183-4C16-4A12-9806-FCD27135C1A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5F661183-4C16-4A12-9806-FCD27135C1A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Debug|x86.Build.0 = Debug|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C2F2B7B-9129-464A-A8AA-6C034FBC3AEE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SharpSetup) = preSolution
+		Version = 1.2
 	EndGlobalSection
 EndGlobal
