@@ -1,7 +1,6 @@
-﻿namespace AutofacVisualizer.Data.Structures
-{
-    public enum InstanceScope
-    {
+﻿namespace AutofacVisualizer.Data.Structures {
+
+    public enum InstanceScope {
         Unknown,
         PerDependency,
         PerLifetimeScope,

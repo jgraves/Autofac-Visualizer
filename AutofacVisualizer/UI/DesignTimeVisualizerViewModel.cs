@@ -45,34 +45,34 @@ namespace AutofacVisualizer.UI {
     public ICollectionView Components {
       get {
         return new List<ComponentRegistration> {
-					new ComponentRegistration{Type = typeof(IVector<>), 
-						Services = new List<TypedService> {
-							new TypedService{Type = typeof(IVector<string>)},
-							new TypedService{Type = typeof(IVector<int>)}
-						}
-					},
-					new ComponentRegistration{Type = typeof(IEnumerable<string>), 
-						Services = new List<TypedService>{new TypedService{Type = typeof(List<IEnumerable<char>>)}
-							, 
-							new TypedService{Type = typeof(List<string>)}
-					}},
-					new ComponentRegistration{
-						Type = typeof(IEnumerable<char>), 
-						Services = new List<TypedService>{new TypedService{Type = typeof(string)}
-					}},
-					new ComponentRegistration{Type = typeof(IEnumerable<char>), 
-						Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
-					},
-					new ComponentRegistration{Type = typeof(IEnumerable<char>), 
-						Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
-					},
-					new ComponentRegistration{Type = typeof(IEnumerable<char>), 
-						Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
-					},
-					new ComponentRegistration{Type = typeof(IEnumerable<char>), 
-						Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
-					}
-				}
+                    new ComponentRegistration{Type = typeof(IVector<>), 
+                        Services = new List<TypedService> {
+                            new TypedService{Type = typeof(IVector<string>)},
+                            new TypedService{Type = typeof(IVector<int>)}
+                        }
+                    },
+                    new ComponentRegistration{Type = typeof(IEnumerable<string>), 
+                        Services = new List<TypedService>{new TypedService{Type = typeof(List<IEnumerable<char>>)}
+                            , 
+                            new TypedService{Type = typeof(List<string>)}
+                    }},
+                    new ComponentRegistration{
+                        Type = typeof(IEnumerable<char>), 
+                        Services = new List<TypedService>{new TypedService{Type = typeof(string)}
+                    }},
+                    new ComponentRegistration{Type = typeof(IEnumerable<char>), 
+                        Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
+                    },
+                    new ComponentRegistration{Type = typeof(IEnumerable<char>), 
+                        Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
+                    },
+                    new ComponentRegistration{Type = typeof(IEnumerable<char>), 
+                        Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
+                    },
+                    new ComponentRegistration{Type = typeof(IEnumerable<char>), 
+                        Services = new List<TypedService>{new TypedService{Type = typeof(string)}}
+                    }
+                }
         .ToView();
       }
     }

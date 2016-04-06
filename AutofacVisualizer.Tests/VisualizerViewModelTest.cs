@@ -19,9 +19,9 @@ namespace AutofacVisualizer.Tests {
 
       objectSource.Setup(o => o.GetServices()).Returns(
         new List<ComponentRegistration> {
-					stringService,
-					objectService,
-				}
+                    stringService,
+                    objectService,
+                }
       );
 
       var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
@@ -41,7 +41,7 @@ namespace AutofacVisualizer.Tests {
     public void DefaultsToContainerView() {
       var objectSource = new Mock<IContainerInfo>();
 
-    	var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
+        var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
 
 
       Assert.AreEqual(View.Container, visualizerViewModel.CurrentView);
@@ -54,8 +54,8 @@ namespace AutofacVisualizer.Tests {
       var stringService = new ComponentRegistration();
       objectSource.Setup(o => o.GetServices()).Returns(
         new List<ComponentRegistration> {
-					stringService,
-				}
+                    stringService,
+                }
       );
 
       var visualizerViewModel = new VisualizerViewModel(objectSource.Object);
@@ -71,8 +71,8 @@ namespace AutofacVisualizer.Tests {
       var stringService = new ComponentRegistration();
       objectSource.Setup(o => o.GetServices()).Returns(
         new List<ComponentRegistration> {
-					stringService,
-				}
+                    stringService,
+                }
       );
 
       var visualizerViewModel = new VisualizerViewModel(objectSource.Object);

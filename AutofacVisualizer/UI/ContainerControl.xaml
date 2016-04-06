@@ -126,7 +126,7 @@
       </Grid.RowDefinitions>
       <TextBlock Grid.Row="0" FontWeight="Bold" Text="Registered Services:" />
       <TextBlock Margin="20,5,5,5" Grid.Row="1" TextWrapping="Wrap">
-            		The Autofac container has the following 
+                    The Autofac container has the following 
                     <Hyperlink>services<Controls:PopupHelp.HelpTip>
                             Services in the Autofac world represent a well-defined contract 
                             that a component provides. The IEnumerable&lt;T&gt; interface 
@@ -134,7 +134,7 @@
                             provides. A service can be provided by multiple components, vice-versa, 
                             one component can provide multiple services.
                         </Controls:PopupHelp.HelpTip>
-            		  </Hyperlink>
+                      </Hyperlink>
                      and <Hyperlink>components<Controls:PopupHelp.HelpTip>
                     Components are a concrete implementation of a particular service. One component can provide multiple services.
                    </Controls:PopupHelp.HelpTip>

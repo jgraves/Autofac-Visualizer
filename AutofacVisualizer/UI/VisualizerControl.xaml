@@ -17,7 +17,7 @@
 
     <Controls:TransitionElement Name="transitionControl">
 
-    	<Controls:TransitionElement.Transition>
+        <Controls:TransitionElement.Transition>
           <Transitions:FadeTransition />
       </Controls:TransitionElement.Transition>
 
